@@ -15,7 +15,7 @@
 
 .floating-item {
     position: absolute;
-    bottom: -10vh;
+    bottom: -20vh;
     animation: floatUp
 }
 
@@ -39,8 +39,32 @@
 
 body {
     height: 100vh;
-    background: rgb(2,0,36);
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+}
+
+.slogan {
+    font-family: "Outfit", sans-serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 2.5rem;
+    color: #ffffff;
+    position: absolute;
+    top: 45%;
+    left: 15vw;
+    max-width: 40vw;
+    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.3);
+    animation: fadeInUp 1.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .box {
@@ -50,7 +74,7 @@ body {
     background-color: rgb(255, 255, 255);
     height: 100vh;
     width: 30vw;
-    border-radius: 10px;
+    border-radius: 20px 0 0 20px;
     box-shadow: 0 0 4px rgb(255, 255, 255);
 }
 
@@ -67,8 +91,7 @@ form {
 }
 
 form button:hover {
-    color: rgb(255, 255, 255);
-    background-color: #2d3681;
+    background: #1e3c72;
 }
 
 form a {
@@ -88,11 +111,13 @@ input {
 }
 
 button {
-    font-family: "Outfit", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 600;
-    font-style: normal;
-    width: 100px;
-    height: 25px;
-    border-radius: 11px;
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    color: white;
+    border: none;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
 }
+
