@@ -1,0 +1,53 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.outfit-font {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    background-color: #4875c3;
+}
+
+.box {
+    margin: 250px;
+}
+
+.box, form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    padding: 10px;
+    gap: 15px;
+    margin: 15px 0 15px 0;
+}
+
+input {
+    width: 300px;
+    height: 34px;
+    border-radius: 15px;
+    padding: 0 15px 0 15px;
+}
+
+.signup-link {
+    color: #000000
+}
+
+button {
+    font-family: "Outfit", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+    width: 100px;
+    height: 25px;
+    border-radius: 11px;
+}
