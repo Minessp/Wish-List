@@ -15,7 +15,7 @@
 
 .floating-item {
     position: absolute;
-    bottom: -100px;
+    bottom: -10vh;
     animation: floatUp
 }
 
@@ -38,11 +38,20 @@
 }
 
 body {
-    background-color: #8992bc;
+    height: 100vh;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
 }
 
 .box {
-    margin: 250px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: rgb(255, 255, 255);
+    height: 100vh;
+    width: 30vw;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgb(255, 255, 255);
 }
 
 .box, form {
@@ -53,14 +62,23 @@ body {
 }
 
 form {
-    padding: 10px;
     gap: 15px;
     margin: 15px 0 15px 0;
 }
 
+form button:hover {
+    color: rgb(255, 255, 255);
+    background-color: #2d3681;
+}
+
+form a {
+    width: 27vh;
+    text-align: center;
+}
+
 input {
-    width: 300px;
-    height: 34px;
+    width: 18vw;
+    height: 4.25vh;
     border-radius: 15px;
     padding: 0 15px 0 15px;
 }
