@@ -31,7 +31,6 @@
 }
 
 .outfit-font {
-    font-family: "Outfit", sans-serif;
     font-optical-sizing: auto;
     font-weight: 400;
     font-style: normal;
@@ -39,11 +38,11 @@
 
 body {
     height: 100vh;
-    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(to right, #141e30 0%, #2a5298 50%) no-repeat fixed;
 }
 
 .slogan {
-    font-family: "Outfit", sans-serif;
     font-weight: 600;
     font-style: normal;
     font-size: 2.5rem;
