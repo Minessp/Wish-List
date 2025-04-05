@@ -39,7 +39,7 @@
 body {
     height: 100vh;
     font-family: 'Outfit', sans-serif;
-    background: linear-gradient(to right, #141e30 0%, #2a5298 50%) no-repeat fixed;
+    background: linear-gradient(to right, #141e30 0%, #2a5298 25%) no-repeat fixed;
 }
 
 .slogan {

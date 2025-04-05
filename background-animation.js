@@ -6,7 +6,8 @@ const images = [
     "images/tenis-nike.png",
     "images/tshirt.png",
     "images/xbox-series.png",
-    "images/keyboard.png"
+    "images/keyboard.png",
+
 ];
 
 function createFloatingItem() {
