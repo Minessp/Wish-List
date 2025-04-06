@@ -1,14 +1,30 @@
 const images = [
-    "images/iphone-front.png",
-    "images/iphone-back-and-front.png",
+    "images/toy.png",
+    "images/ring-ligth.png",
+    "images/pots.png",
+    "images/projector.png",
+    "images/TV.png",
+    "images/gamer-chair.png",
+    "images/camera.png",
+    "images/airpods.png",
+    "images/cap.png",
+    "images/backpack.png",
+    "images/smart-watch.png",
+    "images/laptop.png",
+    "images/hairbrush.png",
+    "images/air-fryer.png",
     "images/ball.png",
+    "images/iphone-back-and-front.png",
+    "images/iphone-front.png",
+    "images/keyboard.png",
     "images/ps5-controller.png",
+    "images/ram.png",
     "images/tenis-nike.png",
     "images/tshirt.png",
     "images/xbox-series.png",
-    "images/keyboard.png",
-
+    "images/glasses.png"
 ];
+
 
 function createFloatingItem() {
     const img = document.createElement("img");
