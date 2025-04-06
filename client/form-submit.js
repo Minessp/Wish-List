@@ -11,7 +11,7 @@ if (formCadastro) {
             password: document.getElementById('passwdCadastro').value
         }
 
-        fetch("http://localhost:8080/user/save", {
+        fetch("http://localhost:8080/cadastro", {
             method: 'POST',
             headers: {
                    'Content-Type': 'application/json'
