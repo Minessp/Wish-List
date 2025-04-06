@@ -1,6 +1,6 @@
 const images = [
     "images/toy.png",
-    "images/ring-ligth.png",
+    "images/ring-light.png",
     "images/pots.png",
     "images/projector.png",
     "images/TV.png",
