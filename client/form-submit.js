@@ -11,6 +11,7 @@ if (formCadastro) {
             password: document.getElementById('passwdCadastro').value
         }
 
+        // Envia dados de cadastro
         fetch("http://localhost:8080/cadastro", {
             method: 'POST',
             headers: {
@@ -33,6 +34,7 @@ if (formLogin) {
             password: document.getElementById('passwdLogin').value
         }
 
+        // Envia dados de login
         fetch("http://localhost:8080/login", {
             method: 'POST',
             headers: {

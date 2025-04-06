@@ -20,8 +20,6 @@ public class Product {
     @Column(name = "preco", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
-
-
     public String getName() {
         return name;
     }
