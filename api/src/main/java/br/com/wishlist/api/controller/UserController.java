@@ -10,8 +10,12 @@ import br.com.wishlist.api.service.UserService;
 @CrossOrigin("*")
 @RequestMapping(value = "/user")
 public class UserController {
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    // Injeção de dependência via construtor
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping("/signup")
     public ResponseEntity<User> signUp(@RequestBody User user) {

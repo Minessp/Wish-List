@@ -7,8 +7,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
-    @Autowired
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+
+    // Injeção de dependência via construtor
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public Product addProduct(Product product) {
         return productRepository.save(product);

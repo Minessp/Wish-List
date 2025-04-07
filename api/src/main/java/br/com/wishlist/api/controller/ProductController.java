@@ -12,8 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/product")
 public class ProductController {
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
+
+    // Injeção de dependência via construtor
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     @PostMapping(value = "/add")
     public ResponseEntity<Product> addProduct(@RequestBody Product product) {
