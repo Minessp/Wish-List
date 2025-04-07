@@ -20,6 +20,10 @@ public class Product {
     @Column(name = "preco", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
+    @ManyToOne
+    @JoinColumn(name = "wish_list_id", nullable = false)
+    private WishList wishList;
+
     public String getName() {
         return name;
     }
