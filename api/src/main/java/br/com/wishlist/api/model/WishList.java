@@ -3,6 +3,7 @@ package br.com.wishlist.api.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "wish_list")
 public class WishList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

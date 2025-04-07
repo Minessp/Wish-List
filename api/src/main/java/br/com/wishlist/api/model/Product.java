@@ -1,10 +1,10 @@
 package br.com.wishlist.api.model;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 
 @Entity
+@Table(name = "produto")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

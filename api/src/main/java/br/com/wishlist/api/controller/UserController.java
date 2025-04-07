@@ -12,12 +12,11 @@ import br.com.wishlist.api.service.UserService;
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
-
     @Autowired
     private UserService userService;
 
-    @PostMapping("/save")
-    public ResponseEntity<User> save(@RequestBody User user) {
-        return ResponseEntity.ok().body(userService.save(user));
+    @PostMapping("/signup")
+    public ResponseEntity<User> signUp(@RequestBody User user) {
+        return ResponseEntity.ok().body(userService.signUp(user));
     }
 }
