@@ -1,22 +1,22 @@
 package br.com.wishlist.api.controller;
 
-import br.com.wishlist.api.model.User;
+import br.com.wishlist.api.model.Product;
+import br.com.wishlist.api.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import br.com.wishlist.api.service.UserService;
 
 @RestController
-@RequestMapping(value = "/user")
-public class UserController {
+@RequestMapping(value = "/product")
+public class ProductController {
     @Autowired
-    private UserService userService;
+    private ProductService productService;
 
-    @PostMapping("/signup")
-    public ResponseEntity<User> signUp(@RequestBody User user) {
-        return ResponseEntity.ok().body(userService.signUp(user));
+    @PostMapping(value = "/add")
+    public ResponseEntity<Product> addProduct(@RequestBody Product product) {
+        return ResponseEntity.ok().body(productService.addProduct(product));
     }
 }
