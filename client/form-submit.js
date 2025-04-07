@@ -18,8 +18,15 @@ if (formCadastro) {
                    'Content-Type': 'application/json'
             },
             body: JSON.stringify(formData)
-        }).then(r => console.log(r.data))
-            .catch((err) => console.log(err));
+        }).then(response => {
+            if (response.ok) {
+                window.location.href = "./login-page.html";
+            }
+        })
+            .catch((err) => {
+                console.log(err);
+                alert("Não foi possível cadastrar o usuário");
+            });
 
         formCadastro.reset();
     })
