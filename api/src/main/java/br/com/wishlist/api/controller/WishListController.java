@@ -17,6 +17,6 @@ public class WishListController {
 
     @PostMapping(value = "/create")
     public ResponseEntity<WishList> createWishList(@RequestBody WishList wishList) {
-        return ResponseEntity.ok().body(wishListService.createWishList(wishList));
+        return ResponseEntity.status(201).body(wishListService.createWishList(wishList));
     }
 }
