@@ -6,18 +6,18 @@ if (formCadastro) {
         e.preventDefault();
 
         const formData = {
-            nome: document.getElementById('nomeCadastro').value,
+            username: document.getElementById('usernameCadastro').value,
             email: document.getElementById('emailCadastro').value,
             password: document.getElementById('passwdCadastro').value
         }
 
         // Envia dados de cadastro
-        fetch("http://localhost:8080/cadastro", {
+        fetch("http://localhost:8080/user/signup", {
             method: 'POST',
             headers: {
                    'Content-Type': 'application/json'
             },
-            body: JSON.stringify({formData})
+            body: JSON.stringify(formData)
         }).then(r => console.log(r.data))
             .catch((err) => console.log(err));
 
