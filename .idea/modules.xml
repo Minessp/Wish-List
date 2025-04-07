@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/api/API-Wish-List.iml" filepath="$PROJECT_DIR$/api/API-Wish-List.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Wish-List.iml" filepath="$PROJECT_DIR$/.idea/Wish-List.iml" />
     </modules>
   </component>
