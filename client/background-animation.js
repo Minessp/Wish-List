@@ -25,7 +25,6 @@ const images = [
     "images/background-images/glasses.png"
 ];
 
-
 function createFloatingItem() {
     const img = document.createElement("img");
     img.src = images[Math.floor(Math.random() * images.length)];
@@ -35,7 +34,6 @@ function createFloatingItem() {
     const delay = Math.random();
     const duration = 8 + Math.random() * 2;
 
-    // Styles
     img.style.left = `${left}%`;
     img.style.animationDelay = `${delay}s`;
     img.style.animationDuration = `${duration}s`;
