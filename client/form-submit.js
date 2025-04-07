@@ -1,6 +1,7 @@
 const formCadastro = document.getElementById('formCadastro');
 const formLogin = document.getElementById('formLogin');
 
+// Verifica se o form é de cadastro
 if (formCadastro) {
     formCadastro.addEventListener('submit', e => {
         e.preventDefault();
@@ -25,6 +26,7 @@ if (formCadastro) {
     })
 }
 
+// Verifica se o form é de login
 if (formLogin) {
     formLogin.addEventListener('submit', e => {
         e.preventDefault();
