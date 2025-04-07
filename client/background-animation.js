@@ -1,30 +1,29 @@
 const images = [
-    "images/toy.png",
-    "images/ring-light.png",
-    "images/pots.png",
-    "images/projector.png",
-    "images/TV.png",
-    "images/gamer-chair.png",
-    "images/camera.png",
-    "images/airpods.png",
-    "images/cap.png",
-    "images/backpack.png",
-    "images/smart-watch.png",
-    "images/laptop.png",
-    "images/hairbrush.png",
-    "images/air-fryer.png",
-    "images/ball.png",
-    "images/iphone-back-and-front.png",
-    "images/iphone-front.png",
-    "images/keyboard.png",
-    "images/ps5-controller.png",
-    "images/ram.png",
-    "images/tenis-nike.png",
-    "images/tshirt.png",
-    "images/xbox-series.png",
-    "images/glasses.png"
+    "images/background-images/toy.png",
+    "images/background-images/ring-light.png",
+    "images/background-images/pots.png",
+    "images/background-images/projector.png",
+    "images/background-images/TV.png",
+    "images/background-images/gamer-chair.png",
+    "images/background-images/camera.png",
+    "images/background-images/airpods.png",
+    "images/background-images/cap.png",
+    "images/background-images/backpack.png",
+    "images/background-images/smart-watch.png",
+    "images/background-images/laptop.png",
+    "images/background-images/hairbrush.png",
+    "images/background-images/air-fryer.png",
+    "images/background-images/ball.png",
+    "images/background-images/iphone-back-and-front.png",
+    "images/background-images/iphone-front.png",
+    "images/background-images/keyboard.png",
+    "images/background-images/ps5-controller.png",
+    "images/background-images/ram.png",
+    "images/background-images/tenis-nike.png",
+    "images/background-images/tshirt.png",
+    "images/background-images/xbox-series.png",
+    "images/background-images/glasses.png"
 ];
-
 
 function createFloatingItem() {
     const img = document.createElement("img");
@@ -35,7 +34,6 @@ function createFloatingItem() {
     const delay = Math.random();
     const duration = 8 + Math.random() * 2;
 
-    // Styles
     img.style.left = `${left}%`;
     img.style.animationDelay = `${delay}s`;
     img.style.animationDuration = `${duration}s`;
