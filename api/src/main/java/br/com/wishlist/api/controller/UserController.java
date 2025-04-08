@@ -1,7 +1,6 @@
 package br.com.wishlist.api.controller;
 
 import br.com.wishlist.api.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import br.com.wishlist.api.service.UserService;

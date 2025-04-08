@@ -49,9 +49,16 @@ if (formLogin) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({formData})
-        }).then(r => console.log(r.data))
-            .catch((err) => console.log(err));
+            body: JSON.stringify(formData)
+        }).then(response => {
+            if (response.status === 200) {
+                window.location.href = "./home.html";
+            }
+        })
+            .catch((err) => {
+                console.log(err);
+                alert("Não foi possível fazer o login");
+        });
 
         formLogin.reset();
     })
