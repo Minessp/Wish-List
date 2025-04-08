@@ -44,7 +44,7 @@ if (formLogin) {
         }
 
         // Envia dados de login
-        fetch("http://localhost:8080/login", {
+        fetch("http://localhost:8080/user/login", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
