@@ -2,22 +2,58 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist | Home</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
     </style>
 </head>
-
 <body>
-    <div>
-        <h1 class="slogan"></h1>
+<div class="background-animation"></div>
+
+<header class="home-page-header">
+    <div id="sidebar-menu">
+        <img class="sidebar-icon" src="images/home-page-icons/menu.png" alt="menu">
     </div>
+    <a href="home.html" class="logo">
+        <img class="logo" src="images/logo/logo.png" alt="logo">
+    </a>
+    <div class="user-menu">
+        <img class="user-icon" src="images/home-page-icons/user-icon.png " alt="user-icon">
+    </div>
+</header>
 
-    <script src="background-animation.js"></script>
+<main class="main-container">
+    <section class="initial-text">
+        <h1>Minhas Listas de Desejos</h1>
+        <p>Comece criando sua primeira lista de presentes!</p>
+    </section>
+
+    <div class="create-wishlist-boxs">
+        <div class="create-wishlist-card">
+            <div>
+                <img class="plus-icon" src="images/home-page-icons/plus.png" alt="" srcset="">
+            </div>
+            <p>Criar nova lista</p>
+        </div>
+
+        <div class="create-wishlist-card">
+            <div>
+                <img class="plus-icon" src="images/home-page-icons/plus.png" alt="" srcset="">
+            </div>
+            <p>Criar nova lista</p>
+        </div>
+
+        <div class="create-wishlist-card">
+            <div>
+                <img class="plus-icon" src="images/home-page-icons/plus.png" alt="" srcset="">
+            </div>
+            <p>Criar nova lista</p>
+        </div>
+    </div>
+</main>
+
+<script src="background-animation.js"></script>
 </body>
-
 </html>
