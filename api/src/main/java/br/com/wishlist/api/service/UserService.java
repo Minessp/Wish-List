@@ -6,6 +6,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -20,5 +22,18 @@ public class UserService {
     public User signUp(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
+    }
+
+    public boolean validateEmail(User user) {
+        return userRepository.findByEmail(user.getEmail()).isPresent();
+    }
+
+    public boolean validatePassword(User user) {
+        User userDb = userRepository.getUserByEmail(user.getEmail());
+        return passwordEncoder.matches(user.getPassword(), userDb.getPassword());
+    }
+
+    public boolean validateUser(User user) {
+        return validateEmail(user) && validatePassword(user);
     }
 }
