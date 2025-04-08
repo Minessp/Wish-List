@@ -154,19 +154,22 @@ button {
 
 /* Logo da aplicação */
 .logo {
+    position: absolute;
     width: 7vw;
-    padding: 0 0.3vh 0 0.5vw;
+    left: 2.2vw;
 }
 
 /* Menu do usuário */
 .user-menu {
     position: absolute;
     right: 0;
-    padding: 0 1vw 0 0
+    padding-right: 1.25vw;
 }
 
 .user-icon {
+    position: relative;
     width: 2.5vw;
+    padding-top: 2.8vh;
 }
 
 .home-page-header .logo {
