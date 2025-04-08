@@ -20,7 +20,7 @@ if (formCadastro) {
             },
             body: JSON.stringify(formData)
         }).then(response => {
-            if (response.ok) {
+            if (response.status === 201) {
                 window.location.href = "./login-page.html";
             }
         })

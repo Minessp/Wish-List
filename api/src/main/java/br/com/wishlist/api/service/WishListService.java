@@ -7,8 +7,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class WishListService {
-    @Autowired
-    private WishListRepository wishListRepository;
+    private final WishListRepository wishListRepository;
+
+    // Injeção de dependência via construtor
+    public WishListService(WishListRepository wishListRepository) {
+        this.wishListRepository = wishListRepository;
+    }
 
     public WishList createWishList(WishList wishList) {
         return wishListRepository.save(wishList);

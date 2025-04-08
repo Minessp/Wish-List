@@ -12,11 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/wishlist")
 public class WishListController {
-    @Autowired
-    private WishListService wishListService;
+    private final WishListService wishListService;
+
+    // Injeção de dependência via construtor
+    public WishListController(WishListService wishListService) {
+        this.wishListService = wishListService;
+    }
 
     @PostMapping(value = "/create")
     public ResponseEntity<WishList> createWishList(@RequestBody WishList wishList) {
-        return ResponseEntity.ok().body(wishListService.createWishList(wishList));
+        return ResponseEntity.status(201).body(wishListService.createWishList(wishList));
     }
 }
