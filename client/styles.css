@@ -147,7 +147,9 @@ button {
 }
 
 .sidebar-icon {
+    position: relative;
     width: 2vw;
+    padding-top: 0.3vh;
 }
 
 /* Logo da aplicação */
@@ -174,21 +176,6 @@ button {
     color: #ffffff;
     font-weight: 700;
     font-size: 1.5rem;
-}
-
-.home-page-header .logo i {
-    font-size: 1.8rem;
-}
-
-.home-page-header .user-icon i {
-    font-size: 2rem;
-    color: #ffffff;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.home-page-header .user-icon i:hover {
-    color: #a4b0be;
 }
 
 /* Container que possui todas a parte principal da página
