@@ -142,12 +142,18 @@ input:focus {
 .forget-passwd {
     font-size: 0.85rem;
     position: relative;
-    right: 100px;
+    right: 4.8vw;
 }
 
 .signup-link {
     position: relative;
     color: #000000;
+}
+
+.login-link {
+    position: relative;
+    color: #000000;
+    margin-top: 1.5vh;
 }
 
 button {
@@ -165,7 +171,7 @@ button {
 .home-page-header {
     display: flex;
     align-items: center;
-    padding: 1.5rem 2rem;
+    padding: 1.5rem 1.6rem;
     position: relative;
 }
 
@@ -177,9 +183,9 @@ button {
 
 /* Logo da aplicação */
 .logo {
-    position: absolute;
+    position: relative;
     width: 7vw;
-    left: 2.2vw;
+    left: 0.4vw;
 }
 
 /* Menu do usuário */
@@ -277,15 +283,11 @@ button {
 
 /* Responsividade */
 @media (max-width: 768px) {
-    .wishlist-grid {
+    .create-wishlist-boxs {
         grid-template-columns: 1fr;
     }
 
-    .add-wishlist-card {
+    .create-wishlist-card {
         min-height: 150px;
-    }
-
-    .add-icon {
-        font-size: 2.5rem;
     }
 }
