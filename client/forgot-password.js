@@ -1,21 +1,36 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const emailForm = document.getElementById('email-step-form');
+document.addEventListener('DOMContentLoaded', function (){
+    const emailForm = document.getElementById('email-recovery');
     const codeForm = document.getElementById('code-step-form');
     const updateForm = document.getElementById('update-passwd-form');
 
-    emailForm.addEventListener('submit', (e) =>  {
+    emailForm.addEventListener('submit', e => {
         e.preventDefault();
-        document.getElementById('email-step').style.display = 'none';
-        document.getElementById('code-step').style.display = 'block';
+
+        const email = document.getElementById('email-recovery').value;
+
+        fetch("http://localhost:8080/mail/sendcode", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(email)
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    document.getElementById('email-step').style.display = 'none';
+                    document.getElementById('code-step').style.display = 'block';
+                }
+            })
+            .catch(error => console.log(error));
     });
 
-    codeForm.addEventListener('submit', (e) =>  {
+    codeForm.addEventListener('submit', e => {
         e.preventDefault();
         document.getElementById('code-step').style.display = 'none';
         document.getElementById('update-passwd-step').style.display = 'block';
     });
 
-    updateForm.addEventListener('submit', (e) =>  {
+    updateForm.addEventListener('submit', e => {
         e.preventDefault();
         alert('Senha atualizada com sucesso!');
     });
