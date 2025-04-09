@@ -18,23 +18,57 @@
         </a>
     </header>
 
-    <div class="recovery-box">
-        <form id="formRecoveryPasswd">
-            <h1>Recuperar Senha</h1>
-            <div class="form-inputs">
-                <input id="emailRecuperar" type="email" name="email" placeholder="Digite seu email" required>
-            </div>
+    <div id="email-step">
+        <div class="recovery-box">
+            <form id="email-step-form">
+                <h1>Recuperar Senha</h1>
+                <div class="form-inputs">
+                    <input id="email-recovery" type="email" name="email" placeholder="Digite seu email" required>
+                </div>
 
-            <div class="form-actions">
-                <a href="login-page.html" class="login-link">Lembrou da senha? Entrar</a>
-                <button type="submit">Enviar Link de Recuperação</button>
-            </div>
-        </form>
+                <div class="form-actions">
+                    <a href="login-page.html" class="login-link">Lembrou da senha? Entrar</a>
+                    <button type="submit">Enviar Link de Recuperação</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="code-step" style="display: none">
+        <div class="recovery-box">
+            <form id="code-step-form">
+                <h1>Recuperar Senha</h1>
+                <div class="form-inputs">
+                    <input id="code-recovery" type="code" name="code" placeholder="Código de verificação" required>
+                </div>
+
+                <div class="form-actions">
+                    <a href="login-page.html" class="login-link">Lembrou da senha? Entrar</a>
+                    <button type="submit">Validar Código</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="update-passwd-step" style="display: none">
+        <div class="recovery-box">
+            <form id="update-passwd-form">
+                <h1>Recuperar Senha</h1>
+                <div class="form-inputs">
+                    <input id="passwd-recovery" type="password" name="password" placeholder="Digite uma nova senha" required>
+                </div>
+
+                <div class="form-actions">
+                    <a href="login-page.html" class="login-link">Lembrou da senha? Entrar</a>
+                    <button type="submit">Atualizar senha</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     <div class="background-animation"></div>
 
-    <script src="form-submit.js"></script>
+    <script src="forgot-password.js"></script>
     <script src="background-animation.js"></script>
 </body>
 </html>
