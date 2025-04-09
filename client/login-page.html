@@ -12,16 +12,27 @@
     </style>
 </head>
 <body>
+    <header class="signup-login-header">
+        <a href="home.html" class="logo">
+            <img class="logo" src="images/logo/logo.png" alt="logo">
+        </a>
+    </header>
     <div>
         <h1 class="slogan">Todos seus desejos em um só lugar</h1>
     </div>
-    <div class="data-box outfit-font">
-        <h1>Login</h1>
+    <div class="data-box">
         <form id="formLogin">
-            <input class="outfit-font" id="emailLogin" type="email" name="email" placeholder="Email" required>
-            <input class="outfit-font" id="passwdLogin" type="password" name="password" placeholder="Password" required>
-            <a href="signup-page.html" class="signup-link">Não tem login? Cadastre-se</a>
-            <button type="submit">Entrar</button>
+            <h1>Login</h1>
+            <div class="form-inputs">
+                <input id="emailLogin" type="email" name="email" placeholder="Email" required>
+                <input id="passwdLogin" type="password" name="password" placeholder="Password" required>
+            </div>
+
+            <div class="form-actions">
+                <a href="forget-password.html" class="forget-passwd">Esqueceu a senha?</a>
+                <a href="signup-page.html" class="signup-link">Não tem login? Cadastre-se</a>
+                <button type="submit">Entrar</button>
+            </div>
         </form>
     </div>
 

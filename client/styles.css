@@ -71,6 +71,15 @@ body {
     }
 }
 
+.signup-login-header {
+    margin-top: 3vh;
+}
+
+.signup-login-header .logo {
+    position: absolute;
+    left: 1vw;
+}
+
 /* Seletor que contém os itens que compõe o formulário */
 .data-box {
     position: absolute;
@@ -90,20 +99,26 @@ body {
     align-items: center;
 }
 
-form {
-    gap: 15px;
-    margin: 15px 0 15px 0;
-}
-
+/* Formatação do form */
 form button:hover {
     background: #1e3c72;
 }
 
-form a {
-    width: 27vh;
-    text-align: center;
+form .form-inputs {
+    margin: 15px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
+form .form-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Formatação do botão de enviar */
 input {
     width: 15vw;
     height: 5vh;
@@ -123,8 +138,16 @@ input:focus {
     box-shadow: 0 0 0 3px rgba(0,123,255,0.25);
 }
 
+/* Parte do esqueceu a senha, redireciona para página de recuperação */
+.forget-passwd {
+    font-size: 0.85rem;
+    position: relative;
+    right: 100px;
+}
+
 .signup-link {
-    color: #000000
+    position: relative;
+    color: #000000;
 }
 
 button {
