@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Cadastro</title>
+    <title>Recuperar Senha</title>
     <link rel="stylesheet" href="styles.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
@@ -17,23 +17,18 @@
             <img class="logo" src="images/logo/logo.png" alt="logo">
         </a>
     </header>
-    <div>
-        <h1 class="slogan">Junte-se a nós e organize todos os seus desejos</h1>
-    </div>
-    <div class="data-box">
-        <form id="formSignup">
-            <h1>Cadastro</h1>
+
+    <div class="recovery-box">
+        <form id="formRecoveryPasswd">
+            <h1>Recuperar Senha</h1>
             <div class="form-inputs">
-                <input id="usernameSignup" type="text" name="nome" placeholder="Username" required>
-                <input id="emailSignup" type="email" name="email" placeholder="Email" required>
-                <input id="passwdSignup" type="password" name="senha" placeholder="Senha" required>
+                <input id="emailRecuperar" type="email" name="email" placeholder="Digite seu email" required>
             </div>
 
             <div class="form-actions">
-                <a href="login-page.html" class="login-link">Já tem uma conta? Entrar</a>
-                <button type="submit">Cadastrar</button>
+                <a href="login-page.html" class="login-link">Lembrou da senha? Entrar</a>
+                <button type="submit">Enviar Link de Recuperação</button>
             </div>
-
         </form>
     </div>
 

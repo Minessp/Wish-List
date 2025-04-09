@@ -1,4 +1,4 @@
-const formCadastro = document.getElementById('formCadastro');
+const formCadastro = document.getElementById('formSignup');
 const formLogin = document.getElementById('formLogin');
 
 // Verifica se o form é de cadastro
@@ -7,9 +7,9 @@ if (formCadastro) {
         e.preventDefault();
 
         const formData = {
-            username: document.getElementById('usernameCadastro').value,
-            email: document.getElementById('emailCadastro').value,
-            password: document.getElementById('passwdCadastro').value
+            username: document.getElementById('usernameSignup').value,
+            email: document.getElementById('emailSignup').value,
+            password: document.getElementById('passwdSignup').value
         }
 
         // Envia dados de cadastro

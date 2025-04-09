@@ -80,6 +80,23 @@ body {
     left: 1vw;
 }
 
+.recovery-box {
+    position: absolute;
+    margin: 21.9vh 25vw 25vh 25vw;
+    width: 50vw;
+    height: 50vh;
+    background-color: rgb(255, 255, 255);
+    border-radius: 20px 20px 20px 20px;
+    box-shadow: 0 0 4px rgb(255, 255, 255);
+}
+
+.recovery-box, form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 /* Seletor que contém os itens que compõe o formulário */
 .data-box {
     position: absolute;
