@@ -1,6 +1,7 @@
 package br.com.wishlist.api.service;
 
 import br.com.wishlist.api.model.Email;
+import br.com.wishlist.api.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -11,7 +12,7 @@ import java.util.Random;
 @Service
 public class EmailService {
     private final JavaMailSender emailSender;
-    private Email email;
+    private final Email email;
 
     public EmailService(JavaMailSender emailSender, Email email) {
         this.emailSender = emailSender;
@@ -21,7 +22,7 @@ public class EmailService {
     @Value("${spring.mail.host}")
     private String host;
 
-    public void sendCode(Email email) {
+    public boolean sendCode(Email email) {
         int generatedCode = new Random().nextInt(999999);
 
        try {
@@ -32,9 +33,12 @@ public class EmailService {
            message.setText("Seu código de recuperação é: " + generatedCode);
            emailSender.send(message);
 
-           System.out.println("Email enviado com sucesso!");
+           return true;
+
        } catch (Exception e) {
            e.printStackTrace();
        }
+
+       return false;
     }
 }

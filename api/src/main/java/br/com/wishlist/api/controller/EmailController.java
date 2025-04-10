@@ -2,6 +2,8 @@ package br.com.wishlist.api.controller;
 
 import br.com.wishlist.api.model.Email;
 import br.com.wishlist.api.service.EmailService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,7 +17,13 @@ public class EmailController {
     }
 
     @PostMapping(value = "/sendcode")
-    public void sendCode(@RequestBody Email email){
-        emailService.sendCode(email);
+    public ResponseEntity<Email> sendCode(@RequestBody Email email){
+        boolean sendSuccessfully = emailService.sendCode(email);
+
+        if(sendSuccessfully){
+            return ResponseEntity.status(200).build();
+        } else {
+            return ResponseEntity.status(500).build();
+        }
     }
 }

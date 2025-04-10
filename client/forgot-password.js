@@ -1,12 +1,14 @@
 document.addEventListener('DOMContentLoaded', function (){
-    const emailForm = document.getElementById('email-recovery');
+    const emailForm = document.getElementById('email-step-form');
     const codeForm = document.getElementById('code-step-form');
     const updateForm = document.getElementById('update-passwd-form');
 
     emailForm.addEventListener('submit', e => {
         e.preventDefault();
 
-        const email = document.getElementById('email-recovery').value;
+        const email = {
+            email: document.getElementById('email-recovery').value
+        };
 
         fetch("http://localhost:8080/mail/sendcode", {
             method: 'POST',
