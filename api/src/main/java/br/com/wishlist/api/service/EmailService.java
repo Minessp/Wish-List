@@ -1,12 +1,12 @@
 package br.com.wishlist.api.service;
 
 import br.com.wishlist.api.model.Email;
-import br.com.wishlist.api.model.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Random;
 
 @Service
@@ -21,6 +21,7 @@ public class EmailService {
 
     @Value("${spring.mail.host}")
     private String host;
+    HashMap<String, Integer> recoveryCode = new HashMap<>();
 
     public boolean sendCode(Email email) {
         int generatedCode = new Random().nextInt(999999);
@@ -33,12 +34,11 @@ public class EmailService {
            message.setText("Seu código de recuperação é: " + generatedCode);
            emailSender.send(message);
 
+           recoveryCode.put("Code:", generatedCode);
            return true;
-
        } catch (Exception e) {
            e.printStackTrace();
        }
-
        return false;
     }
 }

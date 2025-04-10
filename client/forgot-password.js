@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function (){
             email: document.getElementById('email-recovery').value
         };
 
-        fetch("http://localhost:8080/mail/sendcode", {
+        fetch("http://localhost:8080/mail/send-code", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -28,8 +28,25 @@ document.addEventListener('DOMContentLoaded', function (){
 
     codeForm.addEventListener('submit', e => {
         e.preventDefault();
-        document.getElementById('code-step').style.display = 'none';
-        document.getElementById('update-passwd-step').style.display = 'block';
+
+        const code = {
+            code: document.getElementById('email-recovery').value
+        };
+
+        fetch("http://localhost:8080/mail/send-code", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(code)
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    document.getElementById('code-step').style.display = 'none';
+                    document.getElementById('update-passwd-step').style.display = 'block';
+                }
+            })
+            .catch(error => console.log(error));
     });
 
     updateForm.addEventListener('submit', e => {
