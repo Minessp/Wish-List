@@ -1,10 +1,8 @@
 package br.com.wishlist.api.controller;
 
+import br.com.wishlist.api.model.Email;
 import br.com.wishlist.api.service.EmailService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Random;
 
 @RestController
 @CrossOrigin("*")
@@ -17,10 +15,7 @@ public class EmailController {
     }
 
     @PostMapping(value = "/sendcode")
-    public ResponseEntity<EmailService> sendCode(@RequestParam String email){
-        Integer generatedCode = new Random().nextInt(999999);
-        emailService.sendCode(email, generatedCode);
-
-        return ResponseEntity.status(200).build();
+    public void sendCode(@RequestBody Email email){
+        emailService.sendCode(email);
     }
 }
