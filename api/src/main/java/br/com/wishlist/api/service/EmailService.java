@@ -21,7 +21,6 @@ public class EmailService {
 
     @Value("${spring.mail.host}")
     private String host;
-    HashMap<String, Integer> recoveryCode = new HashMap<>();
 
     public boolean sendCode(Email email) {
         int generatedCode = new Random().nextInt(999999);
@@ -34,7 +33,6 @@ public class EmailService {
            message.setText("Seu código de recuperação é: " + generatedCode);
            emailSender.send(message);
 
-           recoveryCode.put("Code:", generatedCode);
            return true;
        } catch (Exception e) {
            e.printStackTrace();
