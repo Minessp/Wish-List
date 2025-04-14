@@ -21,4 +21,17 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
+
+    public boolean validateEmail(User user) {
+        return userRepository.findByEmail(user.getEmail()).isPresent();
+    }
+
+    public boolean validatePassword(User user) {
+        User userDb = userRepository.getUserByEmail(user.getEmail());
+        return passwordEncoder.matches(user.getPassword(), userDb.getPassword());
+    }
+
+    public boolean validateUser(User user) {
+        return validateEmail(user) && validatePassword(user);
+    }
 }
