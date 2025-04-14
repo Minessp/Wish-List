@@ -21,7 +21,7 @@ if (formCadastro) {
             body: JSON.stringify(formData)
         }).then(response => {
             if (response.status === 201) {
-                window.location.href = "./login-page.html";
+                window.location.href = "./sign-login-page.html";
             }
         })
             .catch((err) => {

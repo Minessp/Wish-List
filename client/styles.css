@@ -308,6 +308,8 @@ button {
         min-height: 150px;
     }
 }
+
+/* Altera a visibilidade das divs de formulário de cadastro e login */
 .form-container {
     display: none;
 }
