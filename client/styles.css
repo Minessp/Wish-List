@@ -308,3 +308,12 @@ button {
         min-height: 150px;
     }
 }
+.form-container {
+    display: none;
+}
+
+.form-container.active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
