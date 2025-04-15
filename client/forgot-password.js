@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function (){
             email: document.getElementById('email-recovery').value
         };
 
-        fetch("http://localhost:8080/mail/send-code", {
+        fetch("http://localhost:8080/reset-password/send-code", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function (){
             code: document.getElementById('email-recovery').value
         };
 
-        fetch("http://localhost:8080/mail/send-code", {
+        fetch("http://localhost:8080/reset-password/send-code", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
