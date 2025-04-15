@@ -25,4 +25,15 @@ public class ResetPasswordController {
             return ResponseEntity.status(500).build();
         }
     }
+
+    @PostMapping(value = "/validate-code")
+    public ResponseEntity<ResetPassword> validateCode(@RequestBody ResetPassword resetPassword){
+        boolean validateSuccessfully = resetPasswordService.validateCode(resetPassword);
+
+        if(validateSuccessfully){
+            return ResponseEntity.status(200).build();
+        } else {
+            return ResponseEntity.status(500).build();
+        }
+    }
 }

@@ -29,16 +29,16 @@ document.addEventListener('DOMContentLoaded', function (){
     codeForm.addEventListener('submit', e => {
         e.preventDefault();
 
-        const code = {
-            code: document.getElementById('email-recovery').value
-        };
+        const data = {
+            email: document.getElementById('email-recovery').value,
+            code: document.getElementById('code-recovery').value};
 
-        fetch("http://localhost:8080/reset-password/send-code", {
+        fetch("http://localhost:8080/reset-password/validate-code", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(code)
+            body: JSON.stringify(data)
         })
             .then(response => {
                 if (response.status === 200) {

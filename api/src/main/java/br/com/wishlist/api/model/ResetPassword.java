@@ -1,13 +1,11 @@
 package br.com.wishlist.api.model;
 
 import org.springframework.stereotype.Component;
-import java.io.Serializable;
-import java.util.Random;
 
 @Component
-public class ResetPassword implements Serializable {
+public class ResetPassword {
     private String email;
-    private Integer code;
+    private String code;
 
     public String getEmail() {
         return email;
@@ -17,15 +15,11 @@ public class ResetPassword implements Serializable {
         this.email = email;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(Integer code) {
+    public void setCode(String code) {
         this.code = code;
-    }
-
-    public void generateCode() {
-        code = new Random().nextInt(999999);
     }
 }
