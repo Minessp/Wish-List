@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 public class ResetPassword {
     private String email;
     private String code;
+    private String password;
 
     public String getEmail() {
         return email;
@@ -21,5 +22,13 @@ public class ResetPassword {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

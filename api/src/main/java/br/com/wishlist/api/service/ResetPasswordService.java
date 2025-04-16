@@ -1,10 +1,14 @@
 package br.com.wishlist.api.service;
 
 import br.com.wishlist.api.model.ResetPassword;
+import br.com.wishlist.api.model.User;
+import br.com.wishlist.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
@@ -13,14 +17,16 @@ import java.util.Random;
 @Service
 public class ResetPasswordService {
     private final JavaMailSender emailSender;
-    private final ResetPassword resetPassword;
     private final RedisTemplate<String, Object> redisTemplate;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public ResetPasswordService(JavaMailSender emailSender, ResetPassword resetPassword,
-                                RedisTemplate<String, Object> redisTemplate) {
+    public ResetPasswordService(JavaMailSender emailSender, RedisTemplate<String, Object> redisTemplate,
+                                UserRepository userRepository) {
         this.emailSender = emailSender;
-        this.resetPassword = resetPassword;
         this.redisTemplate = redisTemplate;
+        this.userRepository = userRepository;
+        passwordEncoder = new BCryptPasswordEncoder();
     }
 
     @Value("${spring.mail.host}")
@@ -54,5 +60,17 @@ public class ResetPasswordService {
             return false;
         }
         return resetPassword.getCode().equals(cachedCode);
+    }
+
+    public boolean resetPassword(ResetPassword resetPassword) {
+        try {
+            User user = userRepository.getUserByEmail(resetPassword.getEmail());
+            user.setPassword(passwordEncoder.encode(resetPassword.getPassword()));
+            userRepository.save(user);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function (){
     emailForm.addEventListener('submit', e => {
         e.preventDefault();
 
-        const email = {
+        const data = {
             email: document.getElementById('email-recovery').value
         };
 
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function (){
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(email)
+            body: JSON.stringify(data)
         })
             .then(response => {
                 if (response.status === 200) {
@@ -51,6 +51,28 @@ document.addEventListener('DOMContentLoaded', function (){
 
     updateForm.addEventListener('submit', e => {
         e.preventDefault();
-        alert('Senha atualizada com sucesso!');
+
+        const data = {
+            email: document.getElementById('email-recovery').value,
+            code: document.getElementById('code-recovery').value,
+            password: document.getElementById('passwd-recovery').value
+        }
+
+        fetch("http://localhost:8080/reset-password/set-password", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (response.status === 200) {
+                    alert('Senha atualizada com sucesso!');
+                    window.location.href = "./sign-login-page.html";
+                } else {
+                    alert("Não foi possível alterar a senha!");
+                }
+            })
+            .catch(error => console.log(error));
     });
 });

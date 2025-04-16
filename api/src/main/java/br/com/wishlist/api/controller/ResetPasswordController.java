@@ -36,4 +36,15 @@ public class ResetPasswordController {
             return ResponseEntity.status(500).build();
         }
     }
+
+    @PostMapping(value = "/set-password")
+    public ResponseEntity<ResetPassword> setPassword(@RequestBody ResetPassword resetPassword){
+        boolean resetSuccessfully = resetPasswordService.resetPassword(resetPassword);
+
+        if(resetSuccessfully){
+            return ResponseEntity.status(200).build();
+        } else {
+            return ResponseEntity.status(500).build();
+        }
+    }
 }
