@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    // Injeção de dependência via construtor
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }

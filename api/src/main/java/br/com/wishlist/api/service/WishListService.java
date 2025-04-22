@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 public class WishListService {
     private final WishListRepository wishListRepository;
 
-    // Injeção de dependência via construtor
     public WishListService(WishListRepository wishListRepository) {
         this.wishListRepository = wishListRepository;
     }

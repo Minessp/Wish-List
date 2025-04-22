@@ -11,7 +11,6 @@ public class UserService {
     private final UserRepository userRepository;
     private PasswordEncoder passwordEncoder; // Criptografia de senha
 
-    // Injeção de dependência via construtor
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
         this.passwordEncoder = new BCryptPasswordEncoder(); // Impossibilita reversão via hash

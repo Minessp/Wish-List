@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class WishListController {
     private final WishListService wishListService;
 
-    // Injeção de dependência via construtor
     public WishListController(WishListService wishListService) {
         this.wishListService = wishListService;
     }

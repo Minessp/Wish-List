@@ -11,7 +11,6 @@ import br.com.wishlist.api.service.UserService;
 public class UserController {
     private final UserService userService;
 
-    // Injeção de dependência via construtor
     public UserController(UserService userService) {
         this.userService = userService;
     }
