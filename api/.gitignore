@@ -6,6 +6,8 @@ target/
 
 # Arquivos de configuração sensíveis
 src/main/resources/application.properties
+src/main/resources/app.key
+src/main/resources/app.pub
 
 ### STS ###
 .apt_generated
