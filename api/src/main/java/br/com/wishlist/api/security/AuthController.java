@@ -1,19 +1,31 @@
 package br.com.wishlist.api.security;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import br.com.wishlist.api.dto.AuthDto;
+import br.com.wishlist.api.model.User;
+import br.com.wishlist.api.repository.UserRepository;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("*")
+@RequestMapping(value = "/auth")
 public class AuthController {
-    private final AuthService authService;
+    private final AuthenticationManager authenticationManager;
+    private final UserRepository userRepository;
 
-    public AuthController(AuthService authService) {
-        this.authService = authService;
+    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository) {
+        this.authenticationManager = authenticationManager;
+        this.userRepository = userRepository;
     }
 
-    @PostMapping("/authenticate")
-    public String authenticate(Authentication authentication) {
-        return authService.authenticate(authentication);
+    @PostMapping("/login")
+    public ResponseEntity<Object> login(@RequestBody AuthDto authDto) {
+        User user = userRepository.getUserByEmail(authDto.email());
+        var usernamePassword = new UsernamePasswordAuthenticationToken(user.getUsername(), authDto.password());
+        var auth = this.authenticationManager.authenticate(usernamePassword);
+
+        return ResponseEntity.status(200).build();
     }
 }

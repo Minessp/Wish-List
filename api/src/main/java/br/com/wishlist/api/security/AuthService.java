@@ -1,17 +1,22 @@
 package br.com.wishlist.api.security;
 
-import org.springframework.security.core.Authentication;
+import br.com.wishlist.api.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Service
-public class AuthService {
-    private final JwtService jwtService;
 
-    public AuthService(JwtService jwtService) {
-        this.jwtService = jwtService;
+@Service
+public class AuthService implements UserDetailsService {
+    private final UserRepository userRepository;
+
+    public AuthService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
-    public String authenticate(Authentication authentication) {
-        return jwtService.generateToken(authentication);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findUserByUsername(username);
     }
 }

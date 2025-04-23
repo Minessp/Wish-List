@@ -1,6 +1,6 @@
 package br.com.wishlist.api.service;
 
-import br.com.wishlist.api.model.ResetPassword;
+import br.com.wishlist.api.dto.ResetPasswordDto;
 import br.com.wishlist.api.model.User;
 import br.com.wishlist.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,15 +32,15 @@ public class ResetPasswordService {
     @Value("${spring.mail.host}")
     private String host;
 
-    public boolean sendCode(ResetPassword resetPassword) {
+    public boolean sendCode(ResetPasswordDto resetPasswordDto) {
         String code = String.valueOf(new Random().nextInt(999999));
 
-        redisTemplate.opsForValue().set("Reset code:" + resetPassword.getEmail(), code, Duration.ofMinutes(15));
+        redisTemplate.opsForValue().set("Reset code:" + resetPasswordDto.email(), code, Duration.ofMinutes(15));
 
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(host);
-            message.setTo(resetPassword.getEmail());
+            message.setTo(resetPasswordDto.email());
             message.setSubject("Código de recuperação");
             message.setText("Seu código de recuperação é: " + code);
             emailSender.send(message);
@@ -52,20 +52,20 @@ public class ResetPasswordService {
         return false;
     }
 
-    public boolean validateCode(ResetPassword resetPassword) {
-        String key = "Reset code:" + resetPassword.getEmail();
+    public boolean validateCode(ResetPasswordDto resetPasswordDto) {
+        String key = "Reset code:" + resetPasswordDto.email();
         String cachedCode = (String) redisTemplate.opsForValue().get(key);
 
         if (cachedCode == null) {
             return false;
         }
-        return resetPassword.getCode().equals(cachedCode);
+        return resetPasswordDto.code().equals(cachedCode);
     }
 
-    public boolean resetPassword(ResetPassword resetPassword) {
+    public boolean resetPassword(ResetPasswordDto resetPasswordDto) {
         try {
-            User user = userRepository.getUserByEmail(resetPassword.getEmail());
-            user.setPassword(passwordEncoder.encode(resetPassword.getPassword()));
+            User user = userRepository.getUserByEmail(resetPasswordDto.email());
+            user.setPassword(passwordEncoder.encode(resetPasswordDto.password()));
             userRepository.save(user);
             return true;
         } catch (Exception e) {
