@@ -6,7 +6,7 @@ import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -17,7 +17,6 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -25,29 +24,25 @@ import java.security.interfaces.RSAPublicKey;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
     @Value("${jwt.public.key}")
     private RSAPublicKey publicKey;
 
     @Value("${jwt.private.key}")
     private RSAPrivateKey privatekey;
 
-
     @Bean
     public SecurityFilterChain configure(final HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorizeRequests -> {
-                    try {
                         authorizeRequests
-                                .requestMatchers(HttpMethod.POST, "/user/login", "/user/signup")
+                                .requestMatchers("/authenticate")
                                 .permitAll()
                                 .anyRequest().authenticated();
-                    } catch (Exception e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-
-        http.addFilterBefore(new JwtAuthenticateFilter(), UsernamePasswordAuthenticationFilter.class);
+                })
+                .httpBasic(Customizer.withDefaults())
+                .oauth2ResourceServer(
+                        config -> config.jwt(Customizer.withDefaults())
+                );
 
         return http.build();
     }
