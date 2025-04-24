@@ -6,8 +6,7 @@ target/
 
 # Arquivos de configuração sensíveis
 src/main/resources/application.properties
-src/main/resources/app.key
-src/main/resources/app.pub
+src/main/resources/jwt-secret.key
 
 ### STS ###
 .apt_generated

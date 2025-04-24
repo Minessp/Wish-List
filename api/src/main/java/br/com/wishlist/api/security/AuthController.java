@@ -1,6 +1,7 @@
 package br.com.wishlist.api.security;
 
 import br.com.wishlist.api.dto.AuthDto;
+import br.com.wishlist.api.dto.LoginResponseDto;
 import br.com.wishlist.api.model.User;
 import br.com.wishlist.api.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +15,13 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AuthenticationManager authenticationManager;
     private final UserRepository userRepository;
+    private final JwtService jwtService;
 
-    public AuthController(AuthenticationManager authenticationManager, UserRepository userRepository) {
+    public AuthController(AuthenticationManager authenticationManager,
+                          UserRepository userRepository, JwtService jwtService) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
+        this.jwtService = jwtService;
     }
 
     @PostMapping("/login")
@@ -26,6 +30,8 @@ public class AuthController {
         var usernamePassword = new UsernamePasswordAuthenticationToken(user.getUsername(), authDto.password());
         var auth = this.authenticationManager.authenticate(usernamePassword);
 
-        return ResponseEntity.status(200).build();
+        var token = jwtService.generateToken((User)auth.getPrincipal());
+
+        return ResponseEntity.status(200).body(new LoginResponseDto(token));
     }
 }

@@ -20,7 +20,7 @@ public class UserService {
 
     public User signUp(UserDto userDto) throws UserAlreadyExistException {
         if (userRepository.findUserByEmail(userDto.email()) != null
-                | userRepository.findUserByUsername(userDto.username()) != null) {
+                || userRepository.findUserByUsername(userDto.username()) != null) {
             throw new UserAlreadyExistException("User already exist");
         }
 
