@@ -1,6 +1,6 @@
 package br.com.wishlist.api.controller;
 
-import br.com.wishlist.api.model.ResetPassword;
+import br.com.wishlist.api.dto.ResetPasswordDto;
 import br.com.wishlist.api.service.ResetPasswordService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,35 +16,32 @@ public class ResetPasswordController {
     }
 
     @PostMapping(value = "/send-code")
-    public ResponseEntity<ResetPassword> sendCode(@RequestBody ResetPassword resetPassword){
-        boolean sendSuccessfully = resetPasswordService.sendCode(resetPassword);
+    public ResponseEntity<ResetPasswordDto> sendCode(@RequestBody ResetPasswordDto resetPasswordDto){
+        boolean sendSuccessfully = resetPasswordService.sendCode(resetPasswordDto);
 
         if(sendSuccessfully){
             return ResponseEntity.status(200).build();
-        } else {
-            return ResponseEntity.status(500).build();
         }
+        return ResponseEntity.status(500).build();
     }
 
     @PostMapping(value = "/validate-code")
-    public ResponseEntity<ResetPassword> validateCode(@RequestBody ResetPassword resetPassword){
-        boolean validateSuccessfully = resetPasswordService.validateCode(resetPassword);
+    public ResponseEntity<ResetPasswordDto> validateCode(@RequestBody ResetPasswordDto resetPasswordDto){
+        boolean validateSuccessfully = resetPasswordService.validateCode(resetPasswordDto);
 
         if(validateSuccessfully){
             return ResponseEntity.status(200).build();
-        } else {
-            return ResponseEntity.status(500).build();
         }
+        return ResponseEntity.status(500).build();
     }
 
     @PostMapping(value = "/set-password")
-    public ResponseEntity<ResetPassword> setPassword(@RequestBody ResetPassword resetPassword){
-        boolean resetSuccessfully = resetPasswordService.resetPassword(resetPassword);
+    public ResponseEntity<ResetPasswordDto> setPassword(@RequestBody ResetPasswordDto resetPasswordDto){
+        boolean resetSuccessfully = resetPasswordService.resetPassword(resetPasswordDto);
 
         if(resetSuccessfully){
             return ResponseEntity.status(200).build();
-        } else {
-            return ResponseEntity.status(500).build();
         }
+        return ResponseEntity.status(500).build();
     }
 }
