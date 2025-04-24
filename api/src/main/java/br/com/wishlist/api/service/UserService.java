@@ -8,6 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -27,5 +29,15 @@ public class UserService {
         String encodedPassword = passwordEncoder.encode(userDto.password());
         User user = new User(userDto.username(), userDto.email(), encodedPassword);
         return userRepository.save(user);
+    }
+
+    public UserDto deleteUser(Long id) {
+        User user = userRepository.getUserById(id);
+        userRepository.delete(user);
+        return new UserDto(user.getUsername(), user.getEmail(), user.getPassword());
+    }
+
+    public List<User> listAllUsers() {
+        return userRepository.findAll();
     }
 }
