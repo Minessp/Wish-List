@@ -1,5 +1,6 @@
 package br.com.wishlist.api.service;
 
+import br.com.wishlist.api.dto.UpdateUserRequestDto;
 import br.com.wishlist.api.dto.UserDto;
 import br.com.wishlist.api.exceptions.UserAlreadyExistException;
 import br.com.wishlist.api.model.User;
@@ -20,6 +21,10 @@ public class UserService {
         this.passwordEncoder = new BCryptPasswordEncoder(); // Impossibilita reversão via hash
     }
 
+    public List<User> listAllUsers() {
+        return userRepository.findAll();
+    }
+
     public User signUp(UserDto userDto) throws UserAlreadyExistException {
         if (userRepository.findUserByEmail(userDto.email()) != null
                 || userRepository.findUserByUsername(userDto.username()) != null) {
@@ -37,7 +42,15 @@ public class UserService {
         return new UserDto(user.getUsername(), user.getEmail(), user.getPassword());
     }
 
-    public List<User> listAllUsers() {
-        return userRepository.findAll();
+    public UserDto updateUser(UpdateUserRequestDto request) {
+        User user = userRepository.getUserByUsername(request.oldUserData().username());
+        if(request.newUserData().username() != null) {
+            user.setUsername(request.newUserData().username());
+        } else if(request.newUserData().email() != null) {
+            user.setEmail(request.newUserData().email());
+        }
+
+        userRepository.save(user);
+        return new UserDto(user.getUsername(), user.getEmail(), null);
     }
 }

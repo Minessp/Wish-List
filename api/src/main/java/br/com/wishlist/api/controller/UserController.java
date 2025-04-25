@@ -1,5 +1,6 @@
 package br.com.wishlist.api.controller;
 
+import br.com.wishlist.api.dto.UpdateUserRequestDto;
 import br.com.wishlist.api.dto.UserDto;
 import br.com.wishlist.api.exceptions.UserAlreadyExistException;
 import br.com.wishlist.api.model.User;
@@ -29,10 +30,10 @@ public class UserController {
         return ResponseEntity.status(201).body(userService.signUp(userDto));
     }
 
-//    @PutMapping()
-//    public ResponseEntity<UserDto> updateUser() {
-//
-//    }
+    @PutMapping()
+    public ResponseEntity<UserDto> updateUser(@RequestBody UpdateUserRequestDto request) {
+        return ResponseEntity.status(200).body(userService.updateUser(request));
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<UserDto> deleteUser(@PathVariable Long id) {
