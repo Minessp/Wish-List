@@ -21,12 +21,12 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getUser() {
+    public ResponseEntity<List<UserDto>> getUser() {
         return ResponseEntity.status(200).body(userService.listAllUsers());
     }
 
     @PostMapping()
-    public ResponseEntity<User> signUp(@RequestBody UserDto userDto) throws UserAlreadyExistException {
+    public ResponseEntity<UserDto> signUp(@RequestBody UserDto userDto) throws UserAlreadyExistException {
         return ResponseEntity.status(201).body(userService.signUp(userDto));
     }
 

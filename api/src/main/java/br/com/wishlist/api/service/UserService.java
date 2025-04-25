@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -21,19 +22,20 @@ public class UserService {
         this.passwordEncoder = new BCryptPasswordEncoder(); // Impossibilita reversão via hash
     }
 
-    public List<User> listAllUsers() {
-        return userRepository.findAll();
+    public List<UserDto> listAllUsers() {
+        return userRepository.findAll().stream().map(user -> new UserDto(user.getUsername(), user.getEmail()))
+                .collect(Collectors.toList());
     }
 
-    public User signUp(UserDto userDto) throws UserAlreadyExistException {
+    public UserDto signUp(UserDto userDto) throws UserAlreadyExistException {
         if (userRepository.findUserByEmail(userDto.email()) != null
                 || userRepository.findUserByUsername(userDto.username()) != null) {
             throw new UserAlreadyExistException("User already exist");
         }
 
         String encodedPassword = passwordEncoder.encode(userDto.password());
-        User user = new User(userDto.username(), userDto.email(), encodedPassword);
-        return userRepository.save(user);
+        userRepository.save(new User(userDto.username(), userDto.email(), encodedPassword));
+        return new UserDto(userDto.username(), userDto.email());
     }
 
     public UserDto deleteUser(Long id) {
