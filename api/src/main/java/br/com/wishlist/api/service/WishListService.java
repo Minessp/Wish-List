@@ -1,5 +1,6 @@
 package br.com.wishlist.api.service;
 
+import br.com.wishlist.api.dto.UpdateWishListRequestDto;
 import br.com.wishlist.api.dto.WishListDto;
 import br.com.wishlist.api.model.User;
 import br.com.wishlist.api.model.WishList;
@@ -35,5 +36,16 @@ public class WishListService {
         wishListRepository.save(new WishList(wishListDto.name(),
                 user));
         return new WishListDto(wishListDto.name(), user);
+    }
+
+    public WishListDto updateWishList(UpdateWishListRequestDto request) {
+        WishList wishList = wishListRepository.getByName(request.oldWishList().name());
+        wishList.setName(request.newWishList().name());
+        wishListRepository.save(wishList);
+        return new WishListDto(wishList.getName(), wishList.getUser());
+    }
+
+    public void deleteWishList(WishListDto wishListDto) {
+        wishListRepository.delete(wishListRepository.getByName(wishListDto.name()));
     }
 }

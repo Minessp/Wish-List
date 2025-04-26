@@ -25,12 +25,12 @@ public class UserController {
         return ResponseEntity.status(200).body(userService.listAllUsers());
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<UserDto> signUp(@RequestBody UserDto userDto) throws UserAlreadyExistException {
         return ResponseEntity.status(201).body(userService.signUp(userDto));
     }
 
-    @PutMapping()
+    @PutMapping
     public ResponseEntity<UserDto> updateUser(@RequestBody UpdateUserRequestDto request) {
         return ResponseEntity.status(200).body(userService.updateUser(request));
     }

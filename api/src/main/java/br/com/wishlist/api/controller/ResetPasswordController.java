@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 @RequestMapping(value = "/reset-password")
 public class ResetPasswordController {
+
     private final ResetPasswordService resetPasswordService;
 
     public ResetPasswordController(ResetPasswordService resetPasswordService) {

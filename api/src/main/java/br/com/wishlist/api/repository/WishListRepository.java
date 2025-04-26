@@ -9,4 +9,6 @@ import java.util.List;
 @Service
 public interface WishListRepository extends JpaRepository<WishList, Long> {
     List<WishList> findAllByUserId(Long user_id);
+
+    WishList getByName(String name);
 }
