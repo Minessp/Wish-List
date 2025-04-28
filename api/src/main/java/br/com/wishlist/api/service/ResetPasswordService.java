@@ -44,7 +44,6 @@ public class ResetPasswordService {
             message.setSubject("Código de recuperação");
             message.setText("Seu código de recuperação é: " + code);
             emailSender.send(message);
-
             return true;
         } catch (Exception e) {
             e.printStackTrace();

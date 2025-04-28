@@ -29,4 +29,15 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "wish_list_id", nullable = false)
     private WishList wishList;
+
+    public Product(String link, String name, BigDecimal price, WishList wishList) {
+        this.link = link;
+        this.name = name;
+        this.price = price;
+        this.wishList = wishList;
+    }
+
+    public Product() {
+
+    }
 }

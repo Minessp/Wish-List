@@ -1,5 +1,6 @@
 package br.com.wishlist.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,5 +26,14 @@ public class WishList {
     private User user;
 
     @OneToMany(mappedBy = "wishList", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
     private List<Product> products;
+
+    public WishList(String name, User user) {
+        this.name = name;
+        this.user = user;
+    }
+
+    public WishList() {
+    }
 }

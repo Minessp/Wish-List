@@ -1,5 +1,6 @@
 package br.com.wishlist.api.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,12 +25,15 @@ public class User implements UserDetails {
     private String username;
 
     @Column(name = "email", nullable = false, length = 100)
+    @JsonIgnore
     private String email;
 
     @Column(name = "password")
+    @JsonIgnore
     private String password;
 
-    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WishList> wishlists;
 
     public User(String username, String email, String password) {
