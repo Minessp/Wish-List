@@ -38,12 +38,6 @@ public class UserService {
         return new UserDto(userDto.username(), userDto.email());
     }
 
-    public UserDto deleteUser(Long id) {
-        User user = userRepository.getUserById(id);
-        userRepository.delete(user);
-        return new UserDto(user.getUsername(), user.getEmail(), user.getPassword());
-    }
-
     public UserDto updateUser(UpdateUserRequestDto request) {
         User user = userRepository.getUserByUsername(request.oldUserData().username());
         if(request.newUserData().username() != null) {
@@ -54,5 +48,11 @@ public class UserService {
 
         userRepository.save(user);
         return new UserDto(user.getUsername(), user.getEmail(), null);
+    }
+
+    public UserDto deleteUser(Long id) {
+        User user = userRepository.getUserById(id);
+        userRepository.delete(user);
+        return new UserDto(user.getUsername(), user.getEmail(), user.getPassword());
     }
 }

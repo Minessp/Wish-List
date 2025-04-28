@@ -10,5 +10,5 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByWishListId(Long wishListId);
 
-    Product findByName(String name);
+    Product getProductByNameAndWishListId(String name, Long wishListId);
 }
