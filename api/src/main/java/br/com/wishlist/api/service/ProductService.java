@@ -1,7 +1,7 @@
 package br.com.wishlist.api.service;
 
-import br.com.wishlist.api.dto.ProductDto;
-import br.com.wishlist.api.dto.UpdateProductRequestDto;
+import br.com.wishlist.api.dto.products.ProductDto;
+import br.com.wishlist.api.dto.products.UpdateProductRequestDto;
 import br.com.wishlist.api.model.Product;
 import br.com.wishlist.api.repository.ProductRepository;
 import org.springframework.stereotype.Service;

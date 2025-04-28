@@ -1,7 +1,7 @@
 package br.com.wishlist.api.controller;
 
-import br.com.wishlist.api.dto.ProductDto;
-import br.com.wishlist.api.dto.UpdateProductRequestDto;
+import br.com.wishlist.api.dto.products.ProductDto;
+import br.com.wishlist.api.dto.products.UpdateProductRequestDto;
 import br.com.wishlist.api.service.ProductService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package br.com.wishlist.api.dto;
+package br.com.wishlist.api.dto.wishlists;
 
 import br.com.wishlist.api.model.User;
 

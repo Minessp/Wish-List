@@ -1,9 +1,8 @@
 package br.com.wishlist.api.controller;
 
-import br.com.wishlist.api.dto.UpdateUserRequestDto;
-import br.com.wishlist.api.dto.UserDto;
+import br.com.wishlist.api.dto.users.UpdateUserRequestDto;
+import br.com.wishlist.api.dto.users.UserDto;
 import br.com.wishlist.api.exceptions.UserAlreadyExistException;
-import br.com.wishlist.api.model.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import br.com.wishlist.api.service.UserService;

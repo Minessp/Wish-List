@@ -1,7 +1,7 @@
 package br.com.wishlist.api.service;
 
-import br.com.wishlist.api.dto.UpdateUserRequestDto;
-import br.com.wishlist.api.dto.UserDto;
+import br.com.wishlist.api.dto.users.UpdateUserRequestDto;
+import br.com.wishlist.api.dto.users.UserDto;
 import br.com.wishlist.api.exceptions.UserAlreadyExistException;
 import br.com.wishlist.api.model.User;
 import br.com.wishlist.api.repository.UserRepository;

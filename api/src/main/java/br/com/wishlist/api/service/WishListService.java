@@ -1,7 +1,7 @@
 package br.com.wishlist.api.service;
 
-import br.com.wishlist.api.dto.UpdateWishListRequestDto;
-import br.com.wishlist.api.dto.WishListDto;
+import br.com.wishlist.api.dto.wishlists.UpdateWishListRequestDto;
+import br.com.wishlist.api.dto.wishlists.WishListDto;
 import br.com.wishlist.api.model.User;
 import br.com.wishlist.api.model.WishList;
 import br.com.wishlist.api.repository.UserRepository;
