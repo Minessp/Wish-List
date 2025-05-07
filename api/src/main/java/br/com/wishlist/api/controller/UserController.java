@@ -24,6 +24,11 @@ public class UserController {
         return ResponseEntity.status(200).body(userService.listAllUsers());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+        return ResponseEntity.status(200).body(userService.getUserById(id));
+    }
+
     @PostMapping
     public ResponseEntity<UserDto> signUp(@RequestBody UserDto userDto) throws UserAlreadyExistException {
         return ResponseEntity.status(201).body(userService.signUp(userDto));
@@ -35,7 +40,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<UserDto> deleteUser(@PathVariable Long id) {
-        return ResponseEntity.status(200).body(userService.deleteUser(id));
+    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.status(200).build();
     }
 }

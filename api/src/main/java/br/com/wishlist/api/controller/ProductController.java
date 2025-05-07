@@ -18,11 +18,13 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ProductDto>> getAllProducts(@RequestBody(required = false) Long wishListId) {
-        if(wishListId != null){
-            return ResponseEntity.status(200).body(productService.getAllProductsByWishListId(wishListId));
-        }
+    public ResponseEntity<List<ProductDto>> getAllProducts() {
         return ResponseEntity.status(200).body(productService.getAllProducts());
+    }
+
+    @GetMapping("/{wishListId}")
+    public ResponseEntity<List<ProductDto>> getAllProductsByWishListId(@PathVariable Long wishListId) {
+        return ResponseEntity.status(200).body(productService.getProductsByWishListId(wishListId));
     }
 
     @PostMapping
@@ -35,8 +37,9 @@ public class ProductController {
         return ResponseEntity.status(200).body(productService.updateProduct(request));
     }
 
-    @DeleteMapping
-    public ResponseEntity<ProductDto> deleteProduct(@RequestBody ProductDto productDto) {
-        return ResponseEntity.status(200).body(productService.deleteProduct(productDto));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+        productService.deleteProduct(id);
+        return ResponseEntity.status(200).build();
     }
 }

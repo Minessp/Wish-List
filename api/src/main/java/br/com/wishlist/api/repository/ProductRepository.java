@@ -11,4 +11,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByWishListId(Long wishListId);
 
     Product getProductByNameAndWishListId(String name, Long wishListId);
+
+    Product getProductById(Long id);
 }

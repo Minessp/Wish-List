@@ -18,11 +18,13 @@ public class WishListController {
     }
 
     @GetMapping
-    public ResponseEntity<List<WishListDto>> getWishList(@RequestBody(required = false) Long userId) {
-        if(userId != null){
-            return ResponseEntity.status(200).body(wishListService.getWishListById(userId));
-        }
+    public ResponseEntity<List<WishListDto>> getWishList() {
         return ResponseEntity.status(200).body(wishListService.getAllWishLists());
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<WishListDto>> getWishListById(@PathVariable Long userId) {
+        return ResponseEntity.status(200).body(wishListService.getWishListById(userId));
     }
 
     @PostMapping
@@ -36,7 +38,7 @@ public class WishListController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Object> deleteWishList(@RequestBody WishListDto wishListDto) {
+    public ResponseEntity<Void> deleteWishList(@RequestBody WishListDto wishListDto) {
         wishListService.deleteWishList(wishListDto);
         return ResponseEntity.status(200).build();
     }

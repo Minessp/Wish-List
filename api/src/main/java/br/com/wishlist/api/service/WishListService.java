@@ -1,5 +1,6 @@
 package br.com.wishlist.api.service;
 
+import br.com.wishlist.api.dto.users.UserDto;
 import br.com.wishlist.api.dto.wishlists.UpdateWishListRequestDto;
 import br.com.wishlist.api.dto.wishlists.WishListDto;
 import br.com.wishlist.api.model.User;
@@ -22,30 +23,31 @@ public class WishListService {
     }
 
     public List<WishListDto> getAllWishLists() {
-        return wishListRepository.findAll().stream().map(wishList -> new WishListDto(wishList.getName(),
-                wishList.getUser())).collect(Collectors.toList());
+        return wishListRepository.findAll().stream().map(wishList -> new WishListDto(wishList.getId(), wishList.getName(),
+                wishList.getUser().getId())).collect(Collectors.toList());
     }
 
     public List<WishListDto> getWishListById(Long id) {
-        return wishListRepository.findAllByUserId(id).stream().map(wishList -> new WishListDto(wishList.getName(),
-                wishList.getUser())).collect(Collectors.toList());
+        return wishListRepository.findAllByUserId(id).stream().map(wishList -> new WishListDto(wishList.getId(),
+                wishList.getName(), wishList.getUser().getId())).collect(Collectors.toList());
     }
 
     public WishListDto createWishList(WishListDto wishListDto) {
-        User user = userRepository.getUserByUsername(wishListDto.user().getUsername());
-        wishListRepository.save(new WishList(wishListDto.name(),
-                user));
-        return new WishListDto(wishListDto.name(), user);
+        wishListRepository.save(new WishList(wishListDto.name(), userRepository.getUserById(wishListDto.userId())));
+
+        return new WishListDto(wishListDto.id(), wishListDto.name(), wishListDto.userId());
     }
 
     public WishListDto updateWishList(UpdateWishListRequestDto request) {
-        WishList wishList = wishListRepository.getByName(request.oldWishList().name());
-        wishList.setName(request.newWishList().name());
+        WishList wishList = wishListRepository.getById(request.id());
+        wishList.setName(request.name());
+
         wishListRepository.save(wishList);
-        return new WishListDto(wishList.getName(), wishList.getUser());
+
+        return new WishListDto(wishList.getId(), wishList.getName(), wishList.getUser().getId());
     }
 
     public void deleteWishList(WishListDto wishListDto) {
-        wishListRepository.delete(wishListRepository.getByName(wishListDto.name()));
+        wishListRepository.deleteById(wishListDto.id());
     }
 }

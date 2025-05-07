@@ -23,8 +23,13 @@ public class UserService {
     }
 
     public List<UserDto> listAllUsers() {
-        return userRepository.findAll().stream().map(user -> new UserDto(user.getUsername(), user.getEmail()))
+        return userRepository.findAll().stream().map(user -> new UserDto(user.getId(), user.getUsername(), user.getEmail()))
                 .collect(Collectors.toList());
+    }
+
+    public UserDto getUserById(Long id) {
+        User user = userRepository.getUserById(id);
+        return new UserDto(user.getId(), user.getUsername(), user.getEmail());
     }
 
     public UserDto signUp(UserDto userDto) throws UserAlreadyExistException {
@@ -39,20 +44,21 @@ public class UserService {
     }
 
     public UserDto updateUser(UpdateUserRequestDto request) {
-        User user = userRepository.getUserByUsername(request.oldUserData().username());
-        if(request.newUserData().username() != null) {
-            user.setUsername(request.newUserData().username());
-        } else if(request.newUserData().email() != null) {
-            user.setEmail(request.newUserData().email());
+        User user = userRepository.getUserById(request.id());
+
+        if(request.user().username() != null) {
+            user.setUsername(request.user().username());
+        }
+        if(request.user().email() != null) {
+            user.setEmail(request.user().email());
         }
 
         userRepository.save(user);
-        return new UserDto(user.getUsername(), user.getEmail(), null);
+        return new UserDto(user.getUsername(), user.getEmail());
     }
 
-    public UserDto deleteUser(Long id) {
+    public void deleteUser(Long id) {
         User user = userRepository.getUserById(id);
         userRepository.delete(user);
-        return new UserDto(user.getUsername(), user.getEmail(), user.getPassword());
     }
 }
