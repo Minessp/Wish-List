@@ -14,7 +14,6 @@ import laptop from "../assets/background-images/laptop.png";
 import pots from "../assets/background-images/pots.png";
 import projector from "../assets/background-images/projector.png";
 import ps5Controller from "../assets/background-images/ps5-controller.png";
-import ram from "../assets/background-images/ram.png";
 import ringLight from "../assets/background-images/ring-light.png";
 import smartWatch from "../assets/background-images/smart-watch.png";
 import tenisNike from "../assets/background-images/tenis-nike.png";
@@ -40,7 +39,6 @@ export const BackgroundImages = [
     pots,
     projector,
     ps5Controller,
-    ram,
     ringLight,
     smartWatch,
     tenisNike,
