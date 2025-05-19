@@ -34,6 +34,11 @@ public class UserController {
         return ResponseEntity.status(201).body(userService.signUp(userDto));
     }
 
+    @PostMapping("/admin")
+    public ResponseEntity admin() {
+        return ResponseEntity.status(200).body("Você está logado como administrador");
+    }
+
     @PutMapping
     public ResponseEntity<UserDto> updateUser(@RequestBody UpdateUserRequestDto request) {
         return ResponseEntity.status(200).body(userService.updateUser(request));

@@ -5,6 +5,7 @@ import br.com.wishlist.api.dto.users.UserDto;
 import br.com.wishlist.api.exceptions.UserAlreadyExistException;
 import br.com.wishlist.api.model.User;
 import br.com.wishlist.api.repository.UserRepository;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -23,13 +24,16 @@ public class UserService {
     }
 
     public List<UserDto> listAllUsers() {
-        return userRepository.findAll().stream().map(user -> new UserDto(user.getId(), user.getUsername(), user.getEmail()))
+        return userRepository.findAll().stream().map(user -> new UserDto(user.getId(), user.getUsername(),
+                        user.getEmail(), user.getAuthorities().stream().findFirst().map(
+                                GrantedAuthority::getAuthority).orElse("")))
                 .collect(Collectors.toList());
     }
 
     public UserDto getUserById(Long id) {
         User user = userRepository.getUserById(id);
-        return new UserDto(user.getId(), user.getUsername(), user.getEmail());
+        return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getAuthorities().stream().findFirst().map(
+                GrantedAuthority::getAuthority).orElse(""));
     }
 
     public UserDto signUp(UserDto userDto) throws UserAlreadyExistException {
@@ -39,7 +43,7 @@ public class UserService {
         }
 
         String encodedPassword = passwordEncoder.encode(userDto.password());
-        userRepository.save(new User(userDto.username(), userDto.email(), encodedPassword));
+        userRepository.save(new User(userDto.username(), userDto.email(), encodedPassword, userDto.role()));
         return new UserDto(userDto.username(), userDto.email());
     }
 
