@@ -3,7 +3,10 @@ package br.com.wishlist.api.controller;
 import br.com.wishlist.api.dto.users.UpdateUserRequestDto;
 import br.com.wishlist.api.dto.users.UserDto;
 import br.com.wishlist.api.exceptions.UserAlreadyExistException;
+import br.com.wishlist.api.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import br.com.wishlist.api.service.UserService;
 
@@ -35,8 +38,8 @@ public class UserController {
     }
 
     @PostMapping("/admin")
-    public ResponseEntity admin() {
-        return ResponseEntity.status(200).body("Você está logado como administrador");
+    public String admin() {
+        return "Estou logado como administrador!";
     }
 
     @PutMapping

@@ -1,6 +1,5 @@
 package br.com.wishlist.api.model;
 
-import br.com.wishlist.api.enums.Roles;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -8,10 +7,10 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import br.com.wishlist.api.enums.Role;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -35,28 +34,29 @@ public class User implements UserDetails {
     @JsonIgnore
     private String password;
 
-    @Column(name = "roles")
-    private Roles roles;
+    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WishList> wishlists;
 
-    public User(String username, String email, String password, String role) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.roles = Roles.valueOf(role);
-    }
-
     public User() {
 
     }
 
+    public User(String username, String email, String encodedPassword, String role) {
+        this.username = username;
+        this.email = email;
+        this.password = encodedPassword;
+        this.role = Role.valueOf(role);
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(Objects.equals(roles.getRole(), "ADMIN")) {
-            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        if(this.role == Role.ADMIN) {
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
 
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));

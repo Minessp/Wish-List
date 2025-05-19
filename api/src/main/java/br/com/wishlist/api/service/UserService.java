@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,7 +45,7 @@ public class UserService {
 
         String encodedPassword = passwordEncoder.encode(userDto.password());
         userRepository.save(new User(userDto.username(), userDto.email(), encodedPassword, userDto.role()));
-        return new UserDto(userDto.username(), userDto.email());
+        return new UserDto(userDto.username(), userDto.email(), userDto.role());
     }
 
     public UserDto updateUser(UpdateUserRequestDto request) {
@@ -58,7 +59,7 @@ public class UserService {
         }
 
         userRepository.save(user);
-        return new UserDto(user.getUsername(), user.getEmail());
+        return new UserDto(user.getUsername(), user.getEmail(), user.getRole().name());
     }
 
     public void deleteUser(Long id) {

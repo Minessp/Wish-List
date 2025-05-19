@@ -5,11 +5,7 @@ public record UserDto(Long id, String username, String email, String password, S
         this(id, username, email, "Not available in response body", role);
     }
 
-    public UserDto(String username, String email) {
-        this(null, username, email, "Not available in response body");
-    }
-
     public UserDto(String username, String email, String role) {
-        this(null, username, email, role);
+        this(null, username, email, "Not available in response body", role);
     }
 }
