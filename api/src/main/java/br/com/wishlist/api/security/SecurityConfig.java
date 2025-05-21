@@ -29,8 +29,8 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(
                                 SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(request -> {
-                    request.requestMatchers("/users/", "/auth/**", "/wishlists/**", "/products/**").permitAll();
-                    request.requestMatchers("/users/admin").hasRole("ADMIN");
+                    request.requestMatchers(HttpMethod.POST, "/users","/auth/login").permitAll();
+                    request.requestMatchers(HttpMethod.POST, "/admin").hasRole("ADMIN");
                     request.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

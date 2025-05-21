@@ -37,14 +37,15 @@ public class UserController {
         return ResponseEntity.status(201).body(userService.signUp(userDto));
     }
 
-    @PostMapping("/admin")
-    public String admin() {
-        return "Estou logado como administrador!";
-    }
-
     @PutMapping
-    public ResponseEntity<UserDto> updateUser(@RequestBody UpdateUserRequestDto request) {
-        return ResponseEntity.status(200).body(userService.updateUser(request));
+    public ResponseEntity<UserDto> updateUser(@RequestBody UpdateUserRequestDto request) throws UserAlreadyExistException {
+        UserDto response = userService.updateUser(request);
+
+        if(response == null) {
+            return ResponseEntity.status(400).build();
+        }
+
+        return ResponseEntity.status(200).body(response);
     }
 
     @DeleteMapping("/{id}")
