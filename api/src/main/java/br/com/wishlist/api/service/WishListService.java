@@ -1,7 +1,9 @@
 package br.com.wishlist.api.service;
 
+import br.com.wishlist.api.dto.wishlists.ListWishListResponse;
 import br.com.wishlist.api.dto.wishlists.UpdateWishListRequestDto;
 import br.com.wishlist.api.dto.wishlists.WishListDto;
+import br.com.wishlist.api.model.User;
 import br.com.wishlist.api.model.WishList;
 import br.com.wishlist.api.repository.UserRepository;
 import br.com.wishlist.api.repository.WishListRepository;
@@ -20,31 +22,42 @@ public class WishListService {
         this.userRepository = userRepository;
     }
 
-    public List<WishListDto> getAllWishLists() {
-        return wishListRepository.findAll().stream().map(wishList -> new WishListDto(wishList.getId(), wishList.getName(),
-                wishList.getUser().getId())).collect(Collectors.toList());
+    public List<ListWishListResponse> getAllWishLists() {
+        return wishListRepository.findAll().stream().map(wishList -> new ListWishListResponse(wishList.getId(),
+                wishList.getName(), wishList.getUser().getId())).collect(Collectors.toList());
     }
 
-    public List<WishListDto> getWishListById(Long id) {
-        return wishListRepository.findAllByUserId(id).stream().map(wishList -> new WishListDto(wishList.getId(),
+    public List<ListWishListResponse> getWishListByUserId(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new IllegalArgumentException("Wishlists not found using userid: " + id);
+        }
+
+        return wishListRepository.findAllByUserId(id).stream().map(wishList -> new ListWishListResponse(wishList.getId(),
                 wishList.getName(), wishList.getUser().getId())).collect(Collectors.toList());
     }
 
     public WishListDto createWishList(WishListDto wishListDto) {
-        wishListRepository.save(new WishList(wishListDto.name(), userRepository.getUserById(wishListDto.userId())));
+        if (!userRepository.existsByUsername(wishListDto.username())) {
+            throw new IllegalArgumentException("User not found using username: " + wishListDto.username());
+        }
 
-        return new WishListDto(wishListDto.id(), wishListDto.name(), wishListDto.userId());
+        wishListRepository.save(new WishList(wishListDto.name(),
+                userRepository.getUserByUsername(wishListDto.username())));
+
+        return new WishListDto(wishListDto.name(), wishListDto.username());
     }
 
-    public WishListDto updateWishList(UpdateWishListRequestDto request) {
+    // Verificar lógica de envio de ID da wishlist
+    public ListWishListResponse updateWishList(UpdateWishListRequestDto request) {
         WishList wishList = wishListRepository.getById(request.id());
         wishList.setName(request.name());
 
         wishListRepository.save(wishList);
 
-        return new WishListDto(wishList.getId(), wishList.getName(), wishList.getUser().getId());
+        return new ListWishListResponse(wishList.getId(), wishList.getName(), wishList.getUser().getId());
     }
 
+    // Verificar lógica de envio de ID da wishlist
     public void deleteWishList(WishListDto wishListDto) {
         wishListRepository.deleteById(wishListDto.id());
     }

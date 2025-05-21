@@ -2,6 +2,7 @@ package br.com.wishlist.api.service;
 
 import br.com.wishlist.api.dto.users.UpdateUserRequestDto;
 import br.com.wishlist.api.dto.users.UserDto;
+import br.com.wishlist.api.exceptions.InvalidFieldValue;
 import br.com.wishlist.api.exceptions.PasswordNotMatchException;
 import br.com.wishlist.api.exceptions.UserAlreadyExistException;
 import br.com.wishlist.api.model.User;
@@ -18,6 +19,7 @@ import org.springframework.web.service.annotation.HttpExchange;
 import java.lang.reflect.Method;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -38,7 +40,12 @@ public class UserService {
     }
 
     public UserDto getUserById(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new IllegalArgumentException("User not found using id: " + id);
+        }
+
         User user = userRepository.getUserById(id);
+
         return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getAuthorities().stream().findFirst().map(
                 GrantedAuthority::getAuthority).orElse(""));
     }
@@ -61,7 +68,7 @@ public class UserService {
              throw new PasswordNotMatchException();
          }
 
-        if(request.fieldValue() != null){
+        if(request.fieldValue() != null && !request.fieldValue().trim().isEmpty()){
             try {
                 String methodName = "set" + request.field().substring(0, 1).toUpperCase() +
                         request.field().substring(1);
@@ -82,10 +89,14 @@ public class UserService {
             }
         }
 
-        return null;
+        throw new InvalidFieldValue();
     }
 
     public void deleteUser(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new IllegalArgumentException("User not found using id: " + id);
+        }
+
         User user = userRepository.getUserById(id);
         userRepository.delete(user);
     }

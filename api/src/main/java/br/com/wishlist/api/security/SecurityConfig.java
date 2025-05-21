@@ -29,8 +29,10 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(
                                 SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(request -> {
-                    request.requestMatchers(HttpMethod.POST, "/users","/auth/login").permitAll();
+                    request.requestMatchers(HttpMethod.POST, "/users","/auth").permitAll();
                     request.requestMatchers(HttpMethod.POST, "/admin").hasRole("ADMIN");
+                    request.requestMatchers(HttpMethod.GET, "/users/**").hasRole("ADMIN");
+                    request.requestMatchers(HttpMethod.DELETE, "/users").hasRole("ADMIN");
                     request.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

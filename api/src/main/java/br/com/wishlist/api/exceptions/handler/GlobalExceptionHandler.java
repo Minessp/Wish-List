@@ -1,5 +1,7 @@
 package br.com.wishlist.api.exceptions.handler;
 
+import br.com.wishlist.api.exceptions.InvalidCredentialsException;
+import br.com.wishlist.api.exceptions.InvalidFieldValue;
 import br.com.wishlist.api.exceptions.PasswordNotMatchException;
 import br.com.wishlist.api.exceptions.UserAlreadyExistException;
 import org.springframework.http.HttpStatus;
@@ -14,21 +16,33 @@ import java.util.List;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler({
-            PasswordNotMatchException.class, UserAlreadyExistException.class
-    })
-    public ResponseEntity<ApiError> handleException(RuntimeException e) {
+    private ApiError apiErrorMethod(RuntimeException e, HttpStatus httpStatus) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
         String formatTimestamp = now.format(formatter);
 
-        ApiError apiError = ApiError.builder()
+        return ApiError.builder()
                 .timestamp(formatTimestamp)
-                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .code(httpStatus.value())
                 .errors(List.of(e.getMessage()))
                 .build();
+    }
 
+    @ExceptionHandler(UserAlreadyExistException.class)
+    public ResponseEntity<ApiError> handleUserAlreadyExistException(RuntimeException e) {
+        ApiError apiError = apiErrorMethod(e, HttpStatus.INTERNAL_SERVER_ERROR);
         return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler({
+            PasswordNotMatchException.class,
+            InvalidFieldValue.class,
+            InvalidCredentialsException.class,
+            IllegalArgumentException.class,
+    })
+    public ResponseEntity<ApiError> handle(RuntimeException e) {
+        ApiError apiError = apiErrorMethod(e, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
 }

@@ -1,5 +1,6 @@
 package br.com.wishlist.api.controller;
 
+import br.com.wishlist.api.dto.wishlists.ListWishListResponse;
 import br.com.wishlist.api.dto.wishlists.UpdateWishListRequestDto;
 import br.com.wishlist.api.dto.wishlists.WishListDto;
 import br.com.wishlist.api.service.WishListService;
@@ -18,13 +19,13 @@ public class WishListController {
     }
 
     @GetMapping
-    public ResponseEntity<List<WishListDto>> getWishList() {
+    public ResponseEntity<List<ListWishListResponse>> getWishList() {
         return ResponseEntity.status(200).body(wishListService.getAllWishLists());
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<List<WishListDto>> getWishListById(@PathVariable Long userId) {
-        return ResponseEntity.status(200).body(wishListService.getWishListById(userId));
+    public ResponseEntity<List<ListWishListResponse>> getWishListById(@PathVariable Long userId) {
+        return ResponseEntity.status(200).body(wishListService.getWishListByUserId(userId));
     }
 
     @PostMapping
@@ -33,7 +34,7 @@ public class WishListController {
     }
 
     @PutMapping
-    public ResponseEntity<WishListDto> updateWishList(@RequestBody UpdateWishListRequestDto request) {
+    public ResponseEntity<ListWishListResponse> updateWishList(@RequestBody UpdateWishListRequestDto request) {
         return ResponseEntity.status(200).body(wishListService.updateWishList(request));
     }
 

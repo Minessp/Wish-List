@@ -41,16 +41,12 @@ public class UserController {
     public ResponseEntity<UserDto> updateUser(@RequestBody UpdateUserRequestDto request) throws UserAlreadyExistException {
         UserDto response = userService.updateUser(request);
 
-        if(response == null) {
-            return ResponseEntity.status(400).build();
-        }
-
         return ResponseEntity.status(200).body(response);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
-        return ResponseEntity.status(200).build();
+        return ResponseEntity.status(200).body("Deleção bem sucedida");
     }
 }
