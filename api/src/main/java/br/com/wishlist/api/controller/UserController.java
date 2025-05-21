@@ -1,9 +1,9 @@
 package br.com.wishlist.api.controller;
 
-import br.com.wishlist.api.dto.users.UpdateUserRequestDto;
-import br.com.wishlist.api.dto.users.UserDto;
+import br.com.wishlist.api.dto.users.*;
 import br.com.wishlist.api.exceptions.UserAlreadyExistException;
 import br.com.wishlist.api.repository.UserRepository;
+import org.hibernate.sql.Update;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,25 +23,23 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserDto>> getUser() {
+    public ResponseEntity<List<UserResponse>> getUsers() {
         return ResponseEntity.status(200).body(userService.listAllUsers());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDto> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
         return ResponseEntity.status(200).body(userService.getUserById(id));
     }
 
     @PostMapping
-    public ResponseEntity<UserDto> signUp(@RequestBody UserDto userDto) throws UserAlreadyExistException {
-        return ResponseEntity.status(201).body(userService.signUp(userDto));
+    public ResponseEntity<CreateUserResponse> signUp(@RequestBody CreateUserRequest user) throws UserAlreadyExistException {
+        return ResponseEntity.status(201).body(userService.signUp(user));
     }
 
     @PutMapping
-    public ResponseEntity<UserDto> updateUser(@RequestBody UpdateUserRequestDto request) throws UserAlreadyExistException {
-        UserDto response = userService.updateUser(request);
-
-        return ResponseEntity.status(200).body(response);
+    public ResponseEntity<UserResponse> updateUser(@RequestBody UpdateUserRequest user) throws UserAlreadyExistException {;
+        return ResponseEntity.status(200).body(userService.updateUser(user));
     }
 
     @DeleteMapping("/{id}")

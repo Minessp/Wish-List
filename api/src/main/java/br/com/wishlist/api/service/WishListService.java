@@ -2,8 +2,7 @@ package br.com.wishlist.api.service;
 
 import br.com.wishlist.api.dto.wishlists.ListWishListResponse;
 import br.com.wishlist.api.dto.wishlists.UpdateWishListRequestDto;
-import br.com.wishlist.api.dto.wishlists.WishListDto;
-import br.com.wishlist.api.model.User;
+import br.com.wishlist.api.dto.wishlists.CreateWishListRequest;
 import br.com.wishlist.api.model.WishList;
 import br.com.wishlist.api.repository.UserRepository;
 import br.com.wishlist.api.repository.WishListRepository;
@@ -36,15 +35,15 @@ public class WishListService {
                 wishList.getName(), wishList.getUser().getId())).collect(Collectors.toList());
     }
 
-    public WishListDto createWishList(WishListDto wishListDto) {
-        if (!userRepository.existsByUsername(wishListDto.username())) {
-            throw new IllegalArgumentException("User not found using username: " + wishListDto.username());
+    public CreateWishListRequest createWishList(CreateWishListRequest createWishListRequest) {
+        if (!userRepository.existsByUsername(createWishListRequest.username())) {
+            throw new IllegalArgumentException("User not found using username: " + createWishListRequest.username());
         }
 
-        wishListRepository.save(new WishList(wishListDto.name(),
-                userRepository.getUserByUsername(wishListDto.username())));
+        wishListRepository.save(new WishList(createWishListRequest.name(),
+                userRepository.getUserByUsername(createWishListRequest.username())));
 
-        return new WishListDto(wishListDto.name(), wishListDto.username());
+        return new CreateWishListRequest(createWishListRequest.name(), createWishListRequest.username());
     }
 
     // Verificar lógica de envio de ID da wishlist
@@ -58,7 +57,7 @@ public class WishListService {
     }
 
     // Verificar lógica de envio de ID da wishlist
-    public void deleteWishList(WishListDto wishListDto) {
-        wishListRepository.deleteById(wishListDto.id());
+    public void deleteWishList(CreateWishListRequest createWishListRequest) {
+        wishListRepository.deleteById(createWishListRequest.id());
     }
 }

@@ -2,7 +2,7 @@ package br.com.wishlist.api.controller;
 
 import br.com.wishlist.api.dto.wishlists.ListWishListResponse;
 import br.com.wishlist.api.dto.wishlists.UpdateWishListRequestDto;
-import br.com.wishlist.api.dto.wishlists.WishListDto;
+import br.com.wishlist.api.dto.wishlists.CreateWishListRequest;
 import br.com.wishlist.api.service.WishListService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +29,8 @@ public class WishListController {
     }
 
     @PostMapping
-    public ResponseEntity<WishListDto> createWishList(@RequestBody WishListDto wishListDto) {
-        return ResponseEntity.status(201).body(wishListService.createWishList(wishListDto));
+    public ResponseEntity<CreateWishListRequest> createWishList(@RequestBody CreateWishListRequest createWishListRequest) {
+        return ResponseEntity.status(201).body(wishListService.createWishList(createWishListRequest));
     }
 
     @PutMapping
@@ -39,8 +39,8 @@ public class WishListController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteWishList(@RequestBody WishListDto wishListDto) {
-        wishListService.deleteWishList(wishListDto);
+    public ResponseEntity<Void> deleteWishList(@RequestBody CreateWishListRequest createWishListRequest) {
+        wishListService.deleteWishList(createWishListRequest);
         return ResponseEntity.status(200).build();
     }
 }

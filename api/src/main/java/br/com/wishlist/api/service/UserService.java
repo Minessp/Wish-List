@@ -1,25 +1,18 @@
 package br.com.wishlist.api.service;
 
-import br.com.wishlist.api.dto.users.UpdateUserRequestDto;
-import br.com.wishlist.api.dto.users.UserDto;
+import br.com.wishlist.api.dto.users.*;
 import br.com.wishlist.api.exceptions.InvalidFieldValue;
 import br.com.wishlist.api.exceptions.PasswordNotMatchException;
 import br.com.wishlist.api.exceptions.UserAlreadyExistException;
 import br.com.wishlist.api.model.User;
 import br.com.wishlist.api.repository.UserRepository;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.service.annotation.HttpExchange;
 
 import java.lang.reflect.Method;
-import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,58 +25,78 @@ public class UserService {
         this.passwordEncoder = new BCryptPasswordEncoder(); // Impossibilita reversão via hash
     }
 
-    public List<UserDto> listAllUsers() {
-        return userRepository.findAll().stream().map(user -> new UserDto(user.getId(), user.getUsername(),
-                        user.getEmail(), user.getAuthorities().stream().findFirst().map(
-                                GrantedAuthority::getAuthority).orElse("")))
-                .collect(Collectors.toList());
+    public List<UserResponse> listAllUsers() {
+        return userRepository.findAll().stream().map(user -> UserResponse
+                .builder()
+                .id(user.getId())
+                .username(user.getUsername())
+                .email(user.getEmail())
+                .role(user.getAuthorities().stream().findFirst().map(
+                                GrantedAuthority::getAuthority).orElse(""))
+                .build()).collect(Collectors.toList());
     }
 
-    public UserDto getUserById(Long id) {
+    public UserResponse getUserById(Long id) {
         if (!userRepository.existsById(id)) {
             throw new IllegalArgumentException("User not found using id: " + id);
         }
 
-        User user = userRepository.getUserById(id);
-
-        return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getAuthorities().stream().findFirst().map(
-                GrantedAuthority::getAuthority).orElse(""));
+        return UserResponse
+                .builder()
+                .id(userRepository.getUserById(id).getId())
+                .username(userRepository.getUserById(id).getUsername())
+                .email(userRepository.getUserById(id).getEmail())
+                .role(userRepository.getUserById(id).getAuthorities().stream().findFirst().map(
+                        GrantedAuthority::getAuthority).orElse(""))
+                .build();
     }
 
-    public UserDto signUp(UserDto userDto) throws UserAlreadyExistException {
-        if (userRepository.findUserByEmail(userDto.email()) != null
-                || userRepository.findUserByUsername(userDto.username()) != null) {
+    public CreateUserResponse signUp(CreateUserRequest user) throws UserAlreadyExistException {
+        if (userRepository.findUserByEmail(user.email()) != null
+                || userRepository.findUserByUsername(user.username()) != null) {
             throw new UserAlreadyExistException();
         }
 
-        String encodedPassword = passwordEncoder.encode(userDto.password());
-        userRepository.save(new User(userDto.username(), userDto.email(), encodedPassword, userDto.role()));
-        return new UserDto(userDto.username(), userDto.email(), userDto.role());
+        String encodedPassword = passwordEncoder.encode(user.password());
+        userRepository.save(new User(user.username(), user.email(), encodedPassword, user.role()));
+        return CreateUserResponse
+                .builder()
+                .username(user.username())
+                .email(user.email())
+                .role(user.role())
+                .build();
     }
 
-    public UserDto updateUser(UpdateUserRequestDto request) {
-        User user = userRepository.getUserById(request.id());
+    public UserResponse updateUser(UpdateUserRequest user) {
+        User currentUser = userRepository.getUserById(user.id());
 
-         if(!passwordEncoder.matches(request.password(), user.getPassword())){
+         if(!passwordEncoder.matches(user.password(), currentUser.getPassword())){
              throw new PasswordNotMatchException();
          }
 
-        if(request.fieldValue() != null && !request.fieldValue().trim().isEmpty()){
+        if(user.fieldValue() != null && !user.fieldValue().trim().isEmpty()){
             try {
-                String methodName = "set" + request.field().substring(0, 1).toUpperCase() +
-                        request.field().substring(1);
+                String methodName = "set" + user.field().substring(0, 1).toUpperCase() +
+                        user.field().substring(1);
 
                 Method setterName = User.class.getMethod(methodName, String.class);
 
-                if(request.fieldValue().equals("password")) {
-                    String passwordEncoded = passwordEncoder.encode(request.password());
-                    setterName.invoke(user, passwordEncoded);
+                if(user.fieldValue().equals("password")) {
+                    String passwordEncoded = passwordEncoder.encode(user.password());
+                    setterName.invoke(currentUser, passwordEncoded);
                 }
 
-                setterName.invoke(user, request.fieldValue());
-                userRepository.save(user);
-                return new UserDto(user.getId(), user.getUsername(), user.getEmail(), user.getAuthorities().stream().findFirst().map(
-                        GrantedAuthority::getAuthority).orElse(""));
+                setterName.invoke(currentUser, user.fieldValue());
+                userRepository.save(currentUser);
+
+                return UserResponse
+                        .builder()
+                        .id(currentUser.getId())
+                        .username(currentUser.getUsername())
+                        .email(currentUser.getEmail())
+                        .role(currentUser.getAuthorities().stream().findFirst().map(
+                                GrantedAuthority::getAuthority).orElse(""))
+                        .build();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -97,7 +110,6 @@ public class UserService {
             throw new IllegalArgumentException("User not found using id: " + id);
         }
 
-        User user = userRepository.getUserById(id);
-        userRepository.delete(user);
+        userRepository.delete(userRepository.getUserById(id));
     }
 }
