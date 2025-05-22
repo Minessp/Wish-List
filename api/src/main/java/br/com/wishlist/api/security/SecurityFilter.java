@@ -1,6 +1,5 @@
 package br.com.wishlist.api.security;
 
-import br.com.wishlist.api.repository.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,11 +15,11 @@ import java.io.IOException;
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
-    private final UserRepository userRepository;
+    private final UserDetailsServiceImpl userDetailsService;
 
-    public SecurityFilter(JwtService jwtService, UserRepository userRepository) {
+    public SecurityFilter(JwtService jwtService, UserDetailsServiceImpl userDetailsService) {
         this.jwtService = jwtService;
-        this.userRepository = userRepository;
+        this.userDetailsService = userDetailsService;
     }
 
     @Override
@@ -31,7 +30,7 @@ public class SecurityFilter extends OncePerRequestFilter {
         var token = this.getToken(request);
         if (token != null) {
             var subject = jwtService.validateToken(token);
-            UserDetails user = userRepository.findUserByUsername(subject);
+            UserDetails user = userDetailsService.loadUserByUsername(subject);
 
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
