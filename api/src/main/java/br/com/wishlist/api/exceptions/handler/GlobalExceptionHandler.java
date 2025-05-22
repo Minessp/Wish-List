@@ -41,7 +41,7 @@ public class GlobalExceptionHandler {
             InvalidCredentialsException.class,
             IllegalArgumentException.class,
     })
-    public ResponseEntity<ApiError> handle(RuntimeException e) {
+    public ResponseEntity<ApiError> badRequestHandler(RuntimeException e) {
         ApiError apiError = apiErrorMethod(e, HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }

@@ -101,7 +101,6 @@ public class UserService {
                 e.printStackTrace();
             }
         }
-
         throw new InvalidFieldValue();
     }
 

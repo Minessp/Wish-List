@@ -1,8 +1,6 @@
 package br.com.wishlist.api.controller;
 
-import br.com.wishlist.api.dto.wishlists.ListWishListResponse;
-import br.com.wishlist.api.dto.wishlists.UpdateWishListRequestDto;
-import br.com.wishlist.api.dto.wishlists.CreateWishListRequest;
+import br.com.wishlist.api.dto.wishlists.*;
 import br.com.wishlist.api.service.WishListService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,28 +17,28 @@ public class WishListController {
     }
 
     @GetMapping
-    public ResponseEntity<List<ListWishListResponse>> getWishList() {
+    public ResponseEntity<List<WishListResponse>> getWishList() {
         return ResponseEntity.status(200).body(wishListService.getAllWishLists());
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<List<ListWishListResponse>> getWishListById(@PathVariable Long userId) {
+    public ResponseEntity<List<WishListResponse>> getWishListById(@PathVariable Long userId) {
         return ResponseEntity.status(200).body(wishListService.getWishListByUserId(userId));
     }
 
     @PostMapping
-    public ResponseEntity<CreateWishListRequest> createWishList(@RequestBody CreateWishListRequest createWishListRequest) {
+    public ResponseEntity<CreateWishListResponse> createWishList(@RequestBody CreateWishListRequest createWishListRequest) {
         return ResponseEntity.status(201).body(wishListService.createWishList(createWishListRequest));
     }
 
     @PutMapping
-    public ResponseEntity<ListWishListResponse> updateWishList(@RequestBody UpdateWishListRequestDto request) {
+    public ResponseEntity<WishListResponse> updateWishList(@RequestBody UpdateWishListRequest request) {
         return ResponseEntity.status(200).body(wishListService.updateWishList(request));
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteWishList(@RequestBody CreateWishListRequest createWishListRequest) {
-        wishListService.deleteWishList(createWishListRequest);
-        return ResponseEntity.status(200).build();
+    public ResponseEntity<String> deleteWishList(@RequestBody DeleteWishListRequest request) {
+        wishListService.deleteWishList(request);
+        return ResponseEntity.status(200).body("Deleção bem sucedida");
     }
 }
