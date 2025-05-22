@@ -1,4 +1,4 @@
-package br.com.wishlist.api.security;
+package br.com.wishlist.api.security.auth;
 
 import br.com.wishlist.api.dto.AuthRequest;
 import br.com.wishlist.api.dto.AuthResponse;

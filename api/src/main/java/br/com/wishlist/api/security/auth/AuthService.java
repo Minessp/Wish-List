@@ -1,10 +1,11 @@
-package br.com.wishlist.api.security;
+package br.com.wishlist.api.security.auth;
 
 import br.com.wishlist.api.dto.AuthRequest;
 import br.com.wishlist.api.dto.AuthResponse;
 import br.com.wishlist.api.exceptions.InvalidCredentialsException;
 import br.com.wishlist.api.model.User;
 import br.com.wishlist.api.repository.UserRepository;
+import br.com.wishlist.api.security.JwtService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

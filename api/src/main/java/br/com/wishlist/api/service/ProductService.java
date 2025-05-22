@@ -1,7 +1,9 @@
 package br.com.wishlist.api.service;
 
-import br.com.wishlist.api.dto.products.ProductDto;
-import br.com.wishlist.api.dto.products.UpdateProductRequestDto;
+import br.com.wishlist.api.dto.products.CreateProductRequest;
+import br.com.wishlist.api.dto.products.CreateProductResponse;
+import br.com.wishlist.api.dto.products.ProductResponse;
+import br.com.wishlist.api.dto.products.UpdateProductRequest;
 import br.com.wishlist.api.model.Product;
 import br.com.wishlist.api.repository.ProductRepository;
 import br.com.wishlist.api.repository.WishListRepository;
@@ -20,46 +22,85 @@ public class ProductService {
         this.wishListRepository = wishListRepository;
     }
 
-    public List<ProductDto> getAllProducts() {
-        return productRepository.findAll().stream().map(product -> new ProductDto(
-                product.getId(), product.getLink(), product.getName(), product.getPrice(), product.getWishList().getId()
-        )).collect(Collectors.toList());
+    public List<ProductResponse> getAllProducts() {
+        return productRepository.findAll().stream().map(product ->
+                ProductResponse
+                        .builder()
+                        .id(product.getId())
+                        .link(product.getLink())
+                        .name(product.getName())
+                        .price(product.getPrice())
+                        .wishListId(product.getWishList().getId())
+                        .build())
+                .collect(Collectors.toList());
     }
 
-    public List<ProductDto> getProductsByWishListId(Long wishListId) {
-        return productRepository.findAllByWishListId(wishListId).stream().map(product -> new ProductDto(
-                product.getId(), product.getLink(), product.getName(), product.getPrice(), product.getWishList().getId()
-        )).collect(Collectors.toList());
+    public List<ProductResponse> getProductsByWishListId(Long wishListId) {
+        return productRepository.findAllByWishListId(wishListId).stream().map(product ->
+                ProductResponse
+                        .builder()
+                        .id(product.getId())
+                        .link(product.getLink())
+                        .name(product.getName())
+                        .price(product.getPrice())
+                        .wishListId(product.getWishList().getId())
+                        .build())
+                .collect(Collectors.toList());
     }
 
-    public ProductDto addProduct(ProductDto productDto) {
-        productRepository.save(new Product(productDto.link(), productDto.name(),
-                productDto.price(), wishListRepository.getById(productDto.wishListId())));
-
-        return productDto;
-    }
-
-    public ProductDto updateProduct(UpdateProductRequestDto request) {
-        Product product = productRepository.getProductById(request.productId());
-
-        if(request.newProduct().link() != null) {
-            product.setLink(request.newProduct().link());
+    public CreateProductResponse addProduct(CreateProductRequest request) {
+        if(!wishListRepository.existsById(request.wishListId())) {
+            throw new IllegalArgumentException("Wishlist not found using wishlistId: " + request.wishListId());
         }
-        if(request.newProduct().name() != null) {
-            product.setName(request.newProduct().name());
+
+        productRepository.save(new Product(request.link(), request.name(),
+                request.price(), wishListRepository.getById(request.wishListId())));
+
+        return CreateProductResponse
+                .builder()
+                .link(request.link())
+                .name(request.name())
+                .price(request.price())
+                .wishListId(request.wishListId())
+                .build();
+    }
+
+    public ProductResponse updateProduct(UpdateProductRequest request) {
+        if(!productRepository.existsById(request.id())) {
+            throw new IllegalArgumentException("Product not found using id: " + request.id());
         }
-        if(request.newProduct().price() != null) {
-            product.setPrice(request.newProduct().price());
+
+        Product product = productRepository.getProductById(request.id());
+
+        if(request.link() != null && !request.link().trim().isEmpty()) {
+            product.setLink(request.link());
+        }
+
+        if(request.name() != null && !request.name().trim().isEmpty()) {
+            product.setName(request.name());
+        }
+
+        if(request.price() != null) {
+            product.setPrice(request.price());
         }
 
         productRepository.save(product);
 
-        return new ProductDto(product.getId(), product.getLink(), product.getName(), product.getPrice(),
-                product.getWishList().getId());
+        return ProductResponse
+                .builder()
+                .id(product.getId())
+                .link(product.getLink())
+                .name(product.getName())
+                .price(product.getPrice())
+                .wishListId(product.getWishList().getId())
+                .build();
     }
 
     public void deleteProduct(Long id) {
-        Product product = productRepository.getProductById(id);
-        productRepository.delete(product);
+        if(!productRepository.existsById(id)) {
+            throw new IllegalArgumentException("Product not found using id: " + id);
+        }
+
+        productRepository.delete(productRepository.getProductById(id));
     }
 }
