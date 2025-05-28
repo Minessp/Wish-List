@@ -1,7 +1,7 @@
-package br.com.wishlist.api.application.gateway;
+package br.com.wishlist.api.core.gateway;
 
 import br.com.wishlist.api.core.domain.User;
 
 public interface UserGateway {
-    User create(User user);
+    User createUser(User user);
 }

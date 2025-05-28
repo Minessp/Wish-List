@@ -1,7 +1,7 @@
-package br.com.wishlist.api.application.gateway;
+package br.com.wishlist.api.core.gateway;
 
 import br.com.wishlist.api.core.domain.WishList;
 
 public interface WishListGateway {
-    WishList create(WishList wishList);
+    WishList createWishList(WishList wishList);
 }
