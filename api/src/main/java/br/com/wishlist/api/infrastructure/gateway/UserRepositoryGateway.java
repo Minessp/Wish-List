@@ -3,7 +3,7 @@ package br.com.wishlist.api.infrastructure.gateway;
 import br.com.wishlist.api.core.domain.User;
 import br.com.wishlist.api.core.gateway.UserGateway;
 import br.com.wishlist.api.infrastructure.mapper.user.UserEntityMapper;
-import br.com.wishlist.api.infrastructure.persistence.UserRepository;
+import br.com.wishlist.api.infrastructure.persistence.repositories.UserRepository;
 import br.com.wishlist.api.infrastructure.persistence.entities.UserEntity;
 
 public class UserRepositoryGateway implements UserGateway {

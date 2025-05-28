@@ -3,7 +3,7 @@ package br.com.wishlist.api.infrastructure.gateway;
 import br.com.wishlist.api.core.domain.WishList;
 import br.com.wishlist.api.core.gateway.WishListGateway;
 import br.com.wishlist.api.infrastructure.mapper.wishlist.WishListEntityMapper;
-import br.com.wishlist.api.infrastructure.persistence.WishListRepository;
+import br.com.wishlist.api.infrastructure.persistence.repositories.WishListRepository;
 import br.com.wishlist.api.infrastructure.persistence.entities.WishListEntity;
 
 public class WishListRepositoryGateway implements WishListGateway {
