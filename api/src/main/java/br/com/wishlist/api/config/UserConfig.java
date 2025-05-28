@@ -6,7 +6,7 @@ import br.com.wishlist.api.core.usecases.user.CreateUserInteractor;
 import br.com.wishlist.api.infrastructure.gateway.UserRepositoryGateway;
 import br.com.wishlist.api.infrastructure.mapper.user.UserDTOMapper;
 import br.com.wishlist.api.infrastructure.mapper.user.UserEntityMapper;
-import br.com.wishlist.api.infrastructure.persistence.UserRepository;
+import br.com.wishlist.api.infrastructure.persistence.repositories.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

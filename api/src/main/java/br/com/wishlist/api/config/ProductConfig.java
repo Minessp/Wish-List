@@ -7,7 +7,7 @@ import br.com.wishlist.api.infrastructure.gateway.ProductRepositoryGateway;
 import br.com.wishlist.api.infrastructure.mapper.product.ProductDTOMapper;
 import br.com.wishlist.api.infrastructure.mapper.product.ProductEntityMapper;
 import br.com.wishlist.api.infrastructure.mapper.wishlist.WishListEntityMapper;
-import br.com.wishlist.api.infrastructure.persistence.ProductRepository;
+import br.com.wishlist.api.infrastructure.persistence.repositories.ProductRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
