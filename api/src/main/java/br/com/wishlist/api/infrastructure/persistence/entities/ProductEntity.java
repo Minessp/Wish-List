@@ -25,11 +25,11 @@ public class ProductEntity {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "preco")
+    @Column(name = "price")
     private BigDecimal price;
 
     @ManyToOne
-    @JoinColumn(name = "wish_list_id")
+    @JoinColumn(name = "wishlist_id")
     private WishListEntity wishList;
 
     public ProductEntity(Long id, String link, String name, BigDecimal price, WishListEntity wishList) {
