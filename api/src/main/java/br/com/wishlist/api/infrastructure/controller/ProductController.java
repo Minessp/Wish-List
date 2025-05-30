@@ -5,6 +5,7 @@ import br.com.wishlist.api.core.usecases.product.CreateProductCase;
 import br.com.wishlist.api.infrastructure.dto.product.CreateProductRequest;
 import br.com.wishlist.api.infrastructure.dto.product.CreateProductResponse;
 import br.com.wishlist.api.infrastructure.mapper.product.ProductDTOMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +23,8 @@ public class ProductController {
     }
 
     @PostMapping
-    public CreateProductResponse createProduct(@RequestBody CreateProductRequest request){
+    public ResponseEntity<CreateProductResponse> createProduct(@RequestBody CreateProductRequest request){
         Product product = productDTOMapper.toProduct(request);
-        Product createdProduct = createProductCase.execute(product);
-        return productDTOMapper.toResponse(createdProduct);
+        return ResponseEntity.status(201).body(productDTOMapper.toResponse(createProductCase.execute(product)));
     }
 }

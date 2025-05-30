@@ -29,7 +29,8 @@ public class WishListEntity {
     @OneToMany(mappedBy = "wishList")
     private List<ProductEntity> products;
 
-    public WishListEntity(String name, UserEntity user, List<ProductEntity> products) {
+    public WishListEntity(Long id, String name, UserEntity user, List<ProductEntity> products) {
+        this.id = id;
         this.name = name;
         this.user = user;
         this.products = products;

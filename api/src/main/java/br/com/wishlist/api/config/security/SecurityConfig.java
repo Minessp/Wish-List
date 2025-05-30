@@ -1,4 +1,4 @@
-package br.com.wishlist.api.security;
+package br.com.wishlist.api.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +27,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(
-                                SessionCreationPolicy.STATELESS))
+                        SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(request -> {
                     request.requestMatchers(HttpMethod.POST, "/users","/auth").permitAll();
                     request.requestMatchers(HttpMethod.POST, "/admin").hasRole("ADMIN");

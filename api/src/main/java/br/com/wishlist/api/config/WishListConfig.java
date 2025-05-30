@@ -7,6 +7,7 @@ import br.com.wishlist.api.infrastructure.gateway.WishListRepositoryGateway;
 import br.com.wishlist.api.infrastructure.mapper.user.UserEntityMapper;
 import br.com.wishlist.api.infrastructure.mapper.wishlist.WishListDTOMapper;
 import br.com.wishlist.api.infrastructure.mapper.wishlist.WishListEntityMapper;
+import br.com.wishlist.api.infrastructure.persistence.repositories.UserRepository;
 import br.com.wishlist.api.infrastructure.persistence.repositories.WishListRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +30,7 @@ public class WishListConfig {
     }
 
     @Bean
-    WishListDTOMapper wishListDTOMapper() {
-        return new WishListDTOMapper();
+    WishListDTOMapper wishListDTOMapper(UserRepository userRepository) {
+        return new WishListDTOMapper(userRepository);
     }
 }

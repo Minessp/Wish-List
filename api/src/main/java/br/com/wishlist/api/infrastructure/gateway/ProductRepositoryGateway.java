@@ -18,7 +18,7 @@ public class ProductRepositoryGateway implements ProductGateway {
     @Override
     public Product createProduct(Product product) {
         ProductEntity productEntity = productEntityMapper.toEntity(product);
-        ProductEntity savedProduct = productRepository.save(productEntity);
-        return productEntityMapper.toDomain(savedProduct);
+        productRepository.save(productEntity);
+        return productEntityMapper.toDomain(productEntity);
     }
 }

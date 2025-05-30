@@ -5,6 +5,11 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 import java.util.List;
 
 @Getter
@@ -13,7 +18,7 @@ import java.util.List;
 @Builder
 @Entity
 @Table(name = "users")
-public class UserEntity {
+public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -37,11 +42,41 @@ public class UserEntity {
 
     public UserEntity() {}
 
-    public UserEntity(String username, String email, String encodedPassword, String role, List<WishListEntity> wishlists) {
+    public UserEntity(Long id, String username, String email, String password, Role role, List<WishListEntity> wishlists) {
+        this.id = id;
         this.username = username;
         this.email = email;
-        this.password = encodedPassword;
-        this.role = Role.valueOf(role);
+        this.password = password;
+        this.role = role;
         this.wishlists = wishlists;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.role == Role.ADMIN) {
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        }
+
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 }

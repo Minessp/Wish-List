@@ -12,21 +12,24 @@ public class ProductEntityMapper {
     }
 
     public ProductEntity toEntity(Product product) {
-        return ProductEntity
+         ProductEntity p = ProductEntity
                 .builder()
+                .id(product.id())
                 .link(product.link())
                 .name(product.name())
                 .price(product.price())
-                .wishListEntity(wishListEntityMapper.toEntity(product.wishList()))
+                .wishList(wishListEntityMapper.toEntity(product.wishList()))
                 .build();
+
+         return p;
     }
 
     public Product toDomain(ProductEntity productEntity) {
         return new Product(
-                productEntity.getLink(),
-                productEntity.getName(),
-                productEntity.getPrice(),
-                wishListEntityMapper.toDomain(productEntity.getWishListEntity())
+               productEntity.getLink(),
+               productEntity.getName(),
+               productEntity.getPrice(),
+               wishListEntityMapper.toDomain(productEntity.getWishList())
         );
     }
 }

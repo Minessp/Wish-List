@@ -1,5 +1,9 @@
-package br.com.wishlist.api.security;
+package br.com.wishlist.api.config.security;
 
+import br.com.wishlist.api.core.domain.User;
+import br.com.wishlist.api.core.gateway.TokenGateway;
+import br.com.wishlist.api.infrastructure.gateway.UserDetailsServiceImpl;
+import br.com.wishlist.api.infrastructure.persistence.repositories.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,11 +18,14 @@ import java.io.IOException;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
-    private final JwtService jwtService;
+    private final TokenGateway tokenGateway;
+    private final UserRepository userRepository;
     private final UserDetailsServiceImpl userDetailsService;
 
-    public SecurityFilter(JwtService jwtService, UserDetailsServiceImpl userDetailsService) {
-        this.jwtService = jwtService;
+    public SecurityFilter(TokenGateway tokenGateway, UserRepository userRepository,
+                          UserDetailsServiceImpl userDetailsService) {
+        this.tokenGateway = tokenGateway;
+        this.userRepository = userRepository;
         this.userDetailsService = userDetailsService;
     }
 
@@ -27,10 +34,13 @@ public class SecurityFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
 
-        var token = this.getToken(request);
+        String token = this.getToken(request);
         if (token != null) {
-            var subject = jwtService.validateToken(token);
-            UserDetails user = userDetailsService.loadUserByUsername(subject);
+            String subject = tokenGateway.validateToken(token);
+            Long subjectLong = Long.parseLong(subject);
+            User userBase = userRepository.findUserById(subjectLong);
+
+            UserDetails user = userDetailsService.loadUserByUsername(userBase.username());
 
             var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -40,7 +50,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     }
 
     private String getToken(HttpServletRequest request) {
-        var authHeader = request.getHeader("Authorization");
+        String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             return null;
         }

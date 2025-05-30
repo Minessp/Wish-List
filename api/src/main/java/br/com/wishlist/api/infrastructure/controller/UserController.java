@@ -5,10 +5,8 @@ import br.com.wishlist.api.core.usecases.user.CreateUserCase;
 import br.com.wishlist.api.infrastructure.mapper.user.UserDTOMapper;
 import br.com.wishlist.api.infrastructure.dto.user.CreateUserResponse;
 import br.com.wishlist.api.infrastructure.dto.user.CreateUserRequest;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -21,9 +19,14 @@ public class UserController {
         this.userDTOMapper = userDTOMapper;
     }
 
+//    @GetMapping
+//    public ResponseEntity<List<UserResponse>> getAllUsers() {
+//        return ResponseEntity.status(200).body();
+//    }
+
     @PostMapping
-    public CreateUserResponse createUser(@RequestBody CreateUserRequest request) {
-        User user = userDTOMapper.toUser(request);
-        return userDTOMapper.toResponse(createUserCase.execute(user));
+    public ResponseEntity<CreateUserResponse> createUser(@RequestBody CreateUserRequest request) {
+        User user = userDTOMapper.fromCreateRequestToUser(request);
+        return ResponseEntity.status(201).body(userDTOMapper.fromUserToCreateResponse(createUserCase.execute(user)));
     }
 }

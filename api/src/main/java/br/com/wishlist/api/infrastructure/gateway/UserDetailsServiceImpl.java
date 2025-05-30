@@ -1,12 +1,9 @@
-package br.com.wishlist.api.security;
+package br.com.wishlist.api.infrastructure.gateway;
 
-import br.com.wishlist.api.repository.UserRepository;
-import org.springframework.security.authentication.AuthenticationManager;
+import br.com.wishlist.api.infrastructure.persistence.repositories.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,6 +16,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findUserByUsername(username);
+        return userRepository.getUserByUsername(username);
     }
 }

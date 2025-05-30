@@ -18,7 +18,7 @@ public class WishListRepositoryGateway implements WishListGateway {
     @Override
     public WishList createWishList(WishList wishList) {
         WishListEntity wishlistEntity = wishListEntityMapper.toEntity(wishList);
-        WishListEntity savedWishList = wishListRepository.save(wishlistEntity);
-        return wishListEntityMapper.toDomain(savedWishList);
+        wishListRepository.save(wishlistEntity);
+        return wishListEntityMapper.toDomain(wishlistEntity);
     }
 }

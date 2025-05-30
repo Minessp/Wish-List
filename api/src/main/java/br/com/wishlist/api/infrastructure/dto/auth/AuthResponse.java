@@ -1,4 +1,4 @@
-package br.com.wishlist.api.dto;
+package br.com.wishlist.api.infrastructure.dto.auth;
 
 import lombok.Builder;
 

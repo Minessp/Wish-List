@@ -6,21 +6,21 @@ import br.com.wishlist.api.infrastructure.dto.user.CreateUserRequest;
 import br.com.wishlist.api.infrastructure.dto.user.CreateUserResponse;
 
 public class UserDTOMapper {
-    public CreateUserResponse toResponse(User user) {
-        return CreateUserResponse
-                .builder()
-                .username(user.username())
-                .email(user.email())
-                .role(user.role().name())
-                .build();
-    }
-
-    public User toUser(CreateUserRequest request){
+    public User fromCreateRequestToUser(CreateUserRequest request){
         return new User(
                 request.username(),
                 request.email(),
                 request.password(),
                 Role.valueOf(request.role())
         );
+    }
+
+    public CreateUserResponse fromUserToCreateResponse(User user) {
+        return CreateUserResponse
+                .builder()
+                .username(user.username())
+                .email(user.email())
+                .role(user.role().name())
+                .build();
     }
 }

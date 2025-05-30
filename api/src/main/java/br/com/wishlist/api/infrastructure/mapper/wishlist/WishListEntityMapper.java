@@ -14,15 +14,16 @@ public class WishListEntityMapper {
     public WishListEntity toEntity(WishList wishList){
         return WishListEntity
                 .builder()
+                .id(wishList.id())
                 .name(wishList.name())
                 .user(userEntityMapper.toEntity(wishList.user()))
                 .build();
     }
 
     public WishList toDomain(WishListEntity wishListEntity){
-        return new WishList(
-                wishListEntity.getName(),
-                userEntityMapper.toDomain(wishListEntity.getUser())
+        return new WishList(wishListEntity.getId(),
+                            wishListEntity.getName(),
+                            userEntityMapper.toDomain(wishListEntity.getUser())
         );
     }
 }

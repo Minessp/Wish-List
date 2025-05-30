@@ -6,8 +6,10 @@ import br.com.wishlist.api.core.usecases.product.CreateProductInteractor;
 import br.com.wishlist.api.infrastructure.gateway.ProductRepositoryGateway;
 import br.com.wishlist.api.infrastructure.mapper.product.ProductDTOMapper;
 import br.com.wishlist.api.infrastructure.mapper.product.ProductEntityMapper;
+import br.com.wishlist.api.infrastructure.mapper.wishlist.WishListDTOMapper;
 import br.com.wishlist.api.infrastructure.mapper.wishlist.WishListEntityMapper;
 import br.com.wishlist.api.infrastructure.persistence.repositories.ProductRepository;
+import br.com.wishlist.api.infrastructure.persistence.repositories.WishListRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -29,7 +31,7 @@ public class ProductConfig {
     }
 
     @Bean
-    ProductDTOMapper productDTOMapper() {
-        return new ProductDTOMapper();
+    ProductDTOMapper productDTOMapper(WishListDTOMapper wishListDTOMapper, WishListRepository wishListRepository) {
+        return new ProductDTOMapper(wishListDTOMapper, wishListRepository);
     }
 }
