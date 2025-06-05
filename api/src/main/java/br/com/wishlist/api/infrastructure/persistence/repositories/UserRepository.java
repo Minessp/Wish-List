@@ -6,15 +6,22 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 
+import java.util.UUID;
+
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
     boolean existsByEmail(String email);
 
     User getUserByEmail(String email);
 
-    User findUserById(Long subjectLong);
+    User findUserById(UUID subjectLong);
 
     UserDetails getUserByUsername(String username);
 
-    User getUserById(Long id);
+    User getUserById(UUID id);
+
+    UserEntity getUserEntityById(UUID id);
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    boolean existsUserEntityById(UUID id);
 }

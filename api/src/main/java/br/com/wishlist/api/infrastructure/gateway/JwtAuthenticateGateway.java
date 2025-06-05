@@ -35,7 +35,7 @@ public class JwtAuthenticateGateway implements AuthGateway {
         User user = userRepository.getUserByEmail(request.email());
 
         if (!passwordEncoder.matches(request.password(), user.password())) {
-            throw new RuntimeException("Incorrect Password");
+            throw new IllegalArgumentException("Incorrect Password");
         }
 
         String token = tokenGateway.generateToken(user);

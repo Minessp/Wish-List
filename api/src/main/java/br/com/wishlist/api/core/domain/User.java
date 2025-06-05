@@ -2,7 +2,9 @@ package br.com.wishlist.api.core.domain;
 
 import br.com.wishlist.api.core.enums.Role;
 
-public record User(Long id,
+import java.util.UUID;
+
+public record User(UUID id,
                    String username,
                    String email,
                    String password,

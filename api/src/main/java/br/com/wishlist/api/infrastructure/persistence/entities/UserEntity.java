@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -20,9 +21,9 @@ import java.util.List;
 @Table(name = "users")
 public class UserEntity implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
-    private Long id;
+    private UUID id;
 
     @Column(name = "username")
     private String username;
@@ -42,7 +43,7 @@ public class UserEntity implements UserDetails {
 
     public UserEntity() {}
 
-    public UserEntity(Long id, String username, String email, String password, Role role, List<WishListEntity> wishlists) {
+    public UserEntity(UUID id, String username, String email, String password, Role role, List<WishListEntity> wishlists) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -62,21 +63,21 @@ public class UserEntity implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 }

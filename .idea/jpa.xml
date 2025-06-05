@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit moduleName="API-Wish-List" name="API-Wish-List" framework="JPA" ormUnit="API-Wish-List:API-Wish-List" defaultDataSourceId="96268b80-3b68-4772-b89a-fa36c8da50fa" />
+    </persistence-units>
+  </component>
+</project>
