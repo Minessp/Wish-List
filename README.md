@@ -1,1 +1,1 @@
-# Wish List - Em Desenvolvimento
+# Wish List - Descontinuada
